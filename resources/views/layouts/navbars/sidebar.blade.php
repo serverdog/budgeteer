@@ -35,7 +35,7 @@
     </li>
 
     <li class="nav-item">
-      <a class="nav-link" href="{!! route('balances.index') !!}">
+      <a class="nav-link" href="{!! route('balances.create') !!}">
         <i class="fas fa-fw fa-chart-line"></i>
         <span>Balances</span></a>
     </li>

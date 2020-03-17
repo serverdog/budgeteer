@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\LoggedInUserScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Summary extends Model
@@ -12,4 +13,16 @@ class Summary extends Model
         'name' => 'string',
         'total' => 'float'
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new LoggedInUserScope);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Eloquent as Model;
+use App\Scopes\LoggedInUserScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -66,6 +67,19 @@ class Account extends Model
         'currency_id'    => 'required'
        
     ];
+
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new LoggedInUserScope);
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

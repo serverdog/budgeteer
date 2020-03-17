@@ -37,8 +37,8 @@ class BalanceController extends AppBaseController
      */
     public function create()
     {
-        $accounts = Account::where('user_id', Auth::id())->with('Accounttype', 'Accounttype.Category')->orderBy('accounttype_id')->get();
-        $balances = Balance::where('user_id', Auth::id())->latest()->pluck('amount', 'account_id');
+        $accounts = Account::with('Accounttype', 'Accounttype.Category')->orderBy('accounttype_id')->get();
+        $balances = Balance::latest()->pluck('amount', 'account_id');
 
         return view('balances.create')->with(compact('accounts', 'balances'));
     }
@@ -54,20 +54,22 @@ class BalanceController extends AppBaseController
     {
         $rows = $request->except(['date','_token']);
         $user_id = Auth::id();
-        $accounts = Account::where('user_id', $user_id)->select('id')->get()->pluck('id');
+        $accounts = Account::select('id')->get()->pluck('id');
         $date = $request->get('date');
 
-        Balance::where('user_id', $user_id)->update(['latest'=> false]);
-        Balance::where('user_id', $user_id)->where('date', $date)->delete();
+        Balance::update(['latest'=> false]);
+        Balance::where('date', $date)->delete();
 
         foreach ($rows as $row) {
             //check this users owns this account
-            if ($accounts->keys()->contains($row['account_id']) && !is_null($row['amount'])) {
+            if ($accounts->contains($row['account_id']) && !is_null($row['amount'])) {
                 $row['user_id'] = $user_id;
                 $row['latest'] = true;
                 $row['date'] = $date;
                 $balance = Balance::create($row);
                 $balance->save();
+            } else {
+                dd($row['account_id'], "not matched", $accounts->keys());
             }
         }
 

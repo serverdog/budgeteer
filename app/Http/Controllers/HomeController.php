@@ -26,10 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $accounts = Account::where('user_id', Auth::id())->count();
-        $funds = Summary::where('user_id', Auth::id())->get();
-            dd($funds->pluck('total', 'name'));
+        $accounts = Account::count();
+        $funds    = Summary::get();
+        $details  = Balance::latest()->with(['Account','Account.Accounttype.Category'])->get();
+          
 
-        return view('dashboard')->with(compact('accounts', 'instantCash', 'allCash', 'debts'));
+        return view('home.dashboard')->with(compact('accounts', 'funds', 'details'));
     }
 }
