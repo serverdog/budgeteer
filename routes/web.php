@@ -44,3 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 Route::resource('categories', 'CategoryController');
+
+Route::resource('bills', 'BillController');
+
+Route::resource('billItems', 'BillItemController');

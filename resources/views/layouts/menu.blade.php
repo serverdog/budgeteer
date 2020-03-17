@@ -22,3 +22,11 @@
     <a href="{{ route('categories.index') }}"><i class="fa fa-edit"></i><span>Categories</span></a>
 </li>
 
+<li class="{{ Request::is('bills*') ? 'active' : '' }}">
+    <a href="{{ route('bills.index') }}"><i class="fa fa-edit"></i><span>Bills</span></a>
+</li>
+
+<li class="{{ Request::is('billItems*') ? 'active' : '' }}">
+    <a href="{{ route('billItems.index') }}"><i class="fa fa-edit"></i><span>Bill Items</span></a>
+</li>
+

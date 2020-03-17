@@ -41,6 +41,13 @@
     </li>
 
 
+    <li class="nav-item">
+        <a class="nav-link" href="{!! route('bills.index') !!}">
+          <i class="fas fa-fw fa-receipt"></i>
+          <span>Bills</span></a>
+      </li>
+  
+  
 
 
 
