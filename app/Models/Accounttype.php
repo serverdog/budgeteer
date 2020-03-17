@@ -66,4 +66,13 @@ class Accounttype extends Model
     {
         return $this->hasMany(\App\Models\Balance::class, 'accounttype_id');
     }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\Category::class, 'account_category_id');
+    }
 }

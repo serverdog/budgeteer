@@ -10,8 +10,6 @@ $factory->define(Balance::class, function (Faker $faker) {
     return [
         'user_id' => $faker->word,
         'account_id' => $faker->word,
-        'accounttype_id' => $faker->word,
-        'currency_id' => $faker->word,
         'date' => $faker->word,
         'amount' => $faker->word,
         'latest' => $faker->word,

@@ -1,57 +1,36 @@
-<!-- User Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('user_id', 'User Id:') !!}
-    {!! Form::number('user_id', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Account Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('account_id', 'Account Id:') !!}
-    {!! Form::number('account_id', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Accounttype Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('accounttype_id', 'Accounttype Id:') !!}
-    {!! Form::number('accounttype_id', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Currency Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('currency_id', 'Currency Id:') !!}
-    {!! Form::number('currency_id', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Date Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-12">
     {!! Form::label('date', 'Date:') !!}
-    {!! Form::date('date', null, ['class' => 'form-control','id'=>'date']) !!}
+    {!! Form::date('date', now(), ['class' => 'form-control datepicker col-3','id'=>'date']) !!}
 </div>
+<hr/>
 
-@section('scripts')
-    <script type="text/javascript">
-        $('#date').datetimepicker({
-            format: 'YYYY-MM-DD HH:mm:ss',
-            useCurrent: false
-        })
-    </script>
-@endsection
 
-<!-- Amount Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('amount', 'Amount:') !!}
-    {!! Form::number('amount', null, ['class' => 'form-control']) !!}
-</div>
+@if ($accounts->count())
+    @php
+        $groups = $accounts->groupBy('accounttype_id');
+    @endphp
+    @foreach ($groups as $groupedAccounts)
+        @component("card", ["size" => "6 border-dark no-padding card-full" , "title_bg" => "bg-gradient-success text-gray-100", "title" => Str::plural($groupedAccounts->first()->Accounttype->name)])
 
-<!-- Latest Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('latest', 'Latest:') !!}
-    <label class="checkbox-inline">
-        {!! Form::hidden('latest', 0) !!}
-        {!! Form::checkbox('latest', '1', null) !!}
-    </label>
-</div>
+            @foreach ($groupedAccounts as $account)
+                <!-- Account Id Field -->
+                <div class="form-group col-sm-6">
+                    {!! Form::label('account_id', $account->name) !!}
+                    {!! Form::hidden($account->id.'[account_id]', $account->id) !!}
+                </div>
 
+
+                <!-- Amount Field -->
+                <div class="form-group col-sm-6">
+                
+                    {!! Form::number($account->id.'[amount]', $balances[$account->id] ?? null, ['class' => 'form-control','step'=>'any']) !!}
+                </div>
+
+            @endforeach
+        @endcomponent
+    @endforeach
+@endif
+    
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

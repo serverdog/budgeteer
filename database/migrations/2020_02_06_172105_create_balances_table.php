@@ -18,10 +18,6 @@ class CreateBalancesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('account_id');
             $table->foreign('account_id')->references('id')->on('accounts');
-            $table->unsignedBigInteger('accounttype_id');
-            $table->foreign('accounttype_id')->references('id')->on('accounttypes');
-            $table->unsignedBigInteger('currency_id');
-            $table->foreign('currency_id')->references('id')->on('currencies');
             $table->date('date');
             $table->decimal('amount');
             $table->boolean('latest');

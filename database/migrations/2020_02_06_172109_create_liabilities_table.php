@@ -17,6 +17,8 @@ class CreateLiabilitiesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('account_id')->nullable();
+            $table->foreign('account_id')->references('id')->on('accounts');
             $table->unsignedBigInteger('period_id');
             $table->foreign('period_id')->references('id')->on('periods');
             $table->decimal('amount');

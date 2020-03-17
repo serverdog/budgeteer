@@ -1,25 +1,30 @@
-<!-- User Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('user_id', 'User Id:') !!}
-    {!! Form::number('user_id', null, ['class' => 'form-control']) !!}
-</div>
+
+    {!! Form::hidden('user_id', Auth::id(), ['class' => 'form-control']) !!}
+
 
 <!-- Accounttype Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('accounttype_id', 'Accounttype Id:') !!}
-    {!! Form::number('accounttype_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('accounttype_id', 'Account Name:') !!}
+    {!! Form::text('name', null, ['class' => 'form-control']) !!}
+</div>
+
+
+<!-- Accounttype Id Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('accounttype_id', 'Account Type:') !!}
+    {!! Form::select('accounttype_id', $accounttypes, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Currency Id Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('currency_id', 'Currency Id:') !!}
-    {!! Form::number('currency_id', null, ['class' => 'form-control']) !!}
+    {!! Form::label('currency_id', 'Currency:') !!}
+    {!! Form::select('currency_id', $currencies, null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Interest Rate Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('interest_rate', 'Interest Rate:') !!}
-    {!! Form::number('interest_rate', null, ['class' => 'form-control']) !!}
+    {!! Form::number('interest_rate', null, ['class' => 'form-control','step'=>'any']) !!}
 </div>
 
 <!-- Submit Field -->

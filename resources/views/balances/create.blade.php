@@ -1,23 +1,17 @@
 @extends('layouts.app')
+@section('pageTitle', 'Add Account')
 
 @section('content')
-    <section class="content-header">
-        <h1>
-            Balance
-        </h1>
-    </section>
-    <div class="content">
-        @include('adminlte-templates::common.errors')
-        <div class="box box-primary">
-            <div class="box-body">
-                <div class="row">
-                    {!! Form::open(['route' => 'balances.store']) !!}
+@component("card", ["size" => "12 border-dark no-padding card-full" , "title_bg" => "bg-gradient-primary text-gray-100", "title" => "Record a new balance"])
 
-                        @include('balances.fields')
 
-                    {!! Form::close() !!}
-                </div>
-            </div>
+    <div class="row">
+        {!! Form::open(['route' => 'balances.store']) !!}
+        <div class="row">
+            @include('balances.fields')
         </div>
+        {!! Form::close() !!}
     </div>
+@endcomponent
+                                      
 @endsection

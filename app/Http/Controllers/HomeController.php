@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
+use App\Models\Balance;
+use App\Models\Summary;
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -21,6 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $accounts = Account::where('user_id', Auth::id())->count();
+        $funds = Summary::where('user_id', Auth::id())->get();
+            dd($funds->pluck('total', 'name'));
+
+        return view('dashboard')->with(compact('accounts', 'instantCash', 'allCash', 'debts'));
     }
 }

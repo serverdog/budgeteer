@@ -67,14 +67,13 @@ class Balance extends Model
      * @var array
      */
     public static $rules = [
-        'user_id' => 'required',
-        'account_id' => 'required',
-        'accounttype_id' => 'required',
-        'currency_id' => 'required',
-        'date' => 'required',
-        'amount' => 'required',
-        'latest' => 'required'
+        
     ];
+
+    public static $instantAccounts = [1];
+    public static $availableAccounts = [2];
+    public static $savingsAccounts = [3];
+    public static $debtAccounts = [4];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -98,5 +97,10 @@ class Balance extends Model
     public function currency()
     {
         return $this->belongsTo(\App\Models\Currency::class, 'currency_id');
+    }
+
+    public function scopeLatest($query)
+    {
+        return $query->where('latest', true);
     }
 }

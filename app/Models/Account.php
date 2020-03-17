@@ -35,6 +35,7 @@ class Account extends Model
 
     public $fillable = [
         'user_id',
+        'name',
         'accounttype_id',
         'currency_id',
         'interest_rate'
@@ -59,10 +60,11 @@ class Account extends Model
      * @var array
      */
     public static $rules = [
-        'user_id' => 'required',
+        'user_id'        => 'required',
+        'name'           => 'required',
         'accounttype_id' => 'required',
-        'currency_id' => 'required',
-        'interest_rate' => 'required'
+        'currency_id'    => 'required'
+       
     ];
 
     /**

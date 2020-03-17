@@ -1,26 +1,15 @@
 @extends('layouts.app')
+@section('pageTitle', 'Accounts')
 
 @section('content')
-    <section class="content-header">
-        <h1 class="pull-left">Accounts</h1>
-        <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('accounts.create') }}">Add New</a>
-        </h1>
-    </section>
-    <div class="content">
-        <div class="clearfix"></div>
+@component("card", ["size" => "12 border-dark no-padding card-full" , "title_bg" => "bg-gradient-primary text-gray-100", "title" => "Registered Accounts"])
 
-        @include('flash::message')
 
-        <div class="clearfix"></div>
-        <div class="box box-primary">
-            <div class="box-body">
-                    @include('accounts.table')
-            </div>
-        </div>
-        <div class="text-center">
-        
+    
+    <div class="box box-primary">
+        <div class="box-body">
+            @include('accounts.table')
         </div>
     </div>
+    @endcomponent
 @endsection
-

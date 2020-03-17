@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateAccountRequest;
-use App\Http\Requests\UpdateAccountRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\Account;
-use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Models\Account;
+use App\Models\Currency;
+use App\Models\Accounttype;
+use Illuminate\Http\Request;
+use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\CreateAccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
 
 class AccountController extends AppBaseController
 {
@@ -35,7 +37,9 @@ class AccountController extends AppBaseController
      */
     public function create()
     {
-        return view('accounts.create');
+        $accounttypes = Accounttype::pluck('name', 'id');
+        $currencies = Currency::pluck('name', 'id');
+        return view('accounts.create')->with(compact('accounttypes', 'currencies'));
     }
 
     /**

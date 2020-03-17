@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateBalanceRequest;
-use App\Http\Requests\UpdateBalanceRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\Balance;
-use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Models\Account;
+use App\Models\Balance;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\CreateBalanceRequest;
+use App\Http\Requests\UpdateBalanceRequest;
 
 class BalanceController extends AppBaseController
 {
@@ -35,7 +37,10 @@ class BalanceController extends AppBaseController
      */
     public function create()
     {
-        return view('balances.create');
+        $accounts = Account::where('user_id', Auth::id())->with('Accounttype', 'Accounttype.Category')->orderBy('accounttype_id')->get();
+        $balances = Balance::where('user_id', Auth::id())->latest()->pluck('amount', 'account_id');
+
+        return view('balances.create')->with(compact('accounts', 'balances'));
     }
 
     /**
@@ -47,14 +52,28 @@ class BalanceController extends AppBaseController
      */
     public function store(CreateBalanceRequest $request)
     {
-        $input = $request->all();
+        $rows = $request->except(['date','_token']);
+        $user_id = Auth::id();
+        $accounts = Account::where('user_id', $user_id)->select('id')->get()->pluck('id');
+        $date = $request->get('date');
 
-        /** @var Balance $balance */
-        $balance = Balance::create($input);
+        Balance::where('user_id', $user_id)->update(['latest'=> false]);
+        Balance::where('user_id', $user_id)->where('date', $date)->delete();
+
+        foreach ($rows as $row) {
+            //check this users owns this account
+            if ($accounts->keys()->contains($row['account_id']) && !is_null($row['amount'])) {
+                $row['user_id'] = $user_id;
+                $row['latest'] = true;
+                $row['date'] = $date;
+                $balance = Balance::create($row);
+                $balance->save();
+            }
+        }
 
         Flash::success('Balance saved successfully.');
 
-        return redirect(route('balances.index'));
+        return redirect(route('home'));
     }
 
     /**
