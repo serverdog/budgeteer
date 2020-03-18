@@ -16,7 +16,13 @@
 
         <!-- Custom styles for this template-->
         <link href="/theme/css/sb-admin-2.min.css" rel="stylesheet">
-
+        <style>
+            .clearfix {
+                display: block;
+                content: "";
+                clear:both;
+            }
+        </style>
     </head>
     <body class="{{ $class ?? '' }}">
 

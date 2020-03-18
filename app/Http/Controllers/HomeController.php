@@ -6,6 +6,7 @@ use App\Models\Bill;
 use App\Models\Account;
 use App\Models\Balance;
 use App\Models\Summary;
+use App\Models\HistorySummary;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -31,8 +32,9 @@ class HomeController extends Controller
         $funds    = Summary::get();
         $details  = Balance::with(['Account','Account.Accounttype.Category'])->where('latest', 1)->get();
         $bills = Bill::get();
-        //dd($bills->pluck('monthlyCost', 'name'));
+        $history = HistorySummary::get();
+       
 
-        return view('home.dashboard')->with(compact('accounts', 'funds', 'details', 'bills'));
+        return view('home.dashboard')->with(compact('accounts', 'funds', 'details', 'bills', 'history'));
     }
 }

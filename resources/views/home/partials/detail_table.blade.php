@@ -20,7 +20,7 @@
                 @endphp
                 <tbody>
                     @foreach ($categories as $category => $data)
-                    <tr class='bg-gradient-primary text-gray-100'>
+                    <tr class='bg-gradient-{{ stristr($category, "Liabilities") ? "danger" : "success" }} text-gray-100'>
                         <td>{{ $category }}</td>
                         <td>&nbsp;</td>
                         <td class='text-right'>&pound;{{format($data->pluck('amount')->sum())}}</td>
