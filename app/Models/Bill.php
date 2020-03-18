@@ -83,4 +83,21 @@ class Bill extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
+
+    public function getMonthlyCostAttribute()
+    {
+        if (!empty($this->monthly)) {
+            return $this->monthly;
+        }
+
+        if (!empty($this->yearly)) {
+            return $this->yearly / 12;
+        }
+
+        if (!empty($this->weekly)) {
+            return $this->weekly * 4;
+        }
+
+        return null;
+    }
 }

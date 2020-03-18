@@ -57,7 +57,7 @@ class BalanceController extends AppBaseController
         $accounts = Account::select('id')->get()->pluck('id');
         $date = $request->get('date');
 
-        Balance::update(['latest'=> false]);
+        Balance::where('user_id', $user_id)->update(['latest'=> false]);
         Balance::where('date', $date)->delete();
 
         foreach ($rows as $row) {

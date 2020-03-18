@@ -10,6 +10,8 @@
         $availableCash = $categories->get('Instant Funds', 0)->pluck('amount')->sum()
                         + $categories->get('Stashed Cash', 0)->pluck('amount')->sum()
                         - $categories->get('Short Term Liabilities', 0)->pluck('amount')->sum();
+        $totalBillsPerMonth = $bills->pluck('monthlyCost')->sum() ?? 0;
+        $daysFinanced = $totalBillsPerMonth > 0 ? round($availableCash / $totalBillsPerMonth * 30) : 0;
         @endphp
 
         <div class="table-responsive">
@@ -29,14 +31,28 @@
                     </tr>
 
                     @endforeach
-                        <tr class='bg-gradient-primary text-gray-100 text-lg'>
+                    <tr class='bg-gradient-primary text-gray-100 text-lg'>
                         <td>Cash Available</td>
 
                         <td class='text-right'>&pound;{{format($availableCash )}}</td>
                     </tr>
+                    <tr class='bg-gray-100'>
+                        <td colspan='2'>&nbsp;</td>
+                    </tr>                    
+                    <tr class='bg-gradient-warning text-gray-100'>
+                        <td>Monthly Bills</td>
+
+                        <td class='text-right'>&pound;{{format($totalBillsPerMonth)}}</td>
+                    </tr>
+                    <tr class='bg-gradient-primary text-gray-100'>
+                        <td>Sustainability<sup>*</sup> ({{ $daysFinanced }} days)</td>
+
+                    <td class='text-right'>{{ \Carbon\Carbon::now()->addDays($daysFinanced)->toFormattedDateString()}}</td>
+                    </tr>
                 </tbody>
 
             </table>
+            <sup>*</sup> If all your income stopped today, and your outgoings remained the same, how many days coud you support yourself. Excludes future income and unexpected costs
         </div>
     </div>
     @endif

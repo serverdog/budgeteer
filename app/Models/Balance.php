@@ -115,6 +115,7 @@ class Balance extends Model
 
     public function scopeLatest($query)
     {
-        return $query->where('latest', true);
+        dd('here');
+        return $query->where('latest', 1);
     }
 }

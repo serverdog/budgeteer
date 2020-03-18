@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
 use App\Models\Account;
 use App\Models\Balance;
 use App\Models\Summary;
@@ -28,9 +29,10 @@ class HomeController extends Controller
     {
         $accounts = Account::count();
         $funds    = Summary::get();
-        $details  = Balance::latest()->with(['Account','Account.Accounttype.Category'])->get();
-          
+        $details  = Balance::with(['Account','Account.Accounttype.Category'])->where('latest', 1)->get();
+        $bills = Bill::get();
+        //dd($bills->pluck('monthlyCost', 'name'));
 
-        return view('home.dashboard')->with(compact('accounts', 'funds', 'details'));
+        return view('home.dashboard')->with(compact('accounts', 'funds', 'details', 'bills'));
     }
 }
