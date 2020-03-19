@@ -25,9 +25,15 @@ class BillController extends AppBaseController
     {
         /** @var Bill $bills */
         $bills = Bill::all();
+        $graphData = Bill::where('user_id', Auth::id())
+                ->select('dayofmonth', \DB::raw('sum(monthly) as total'))
+                ->whereNotNull('monthly')
+                ->groupBy('dayofmonth')
+                ->get()
+                ->pluck('total', 'dayofmonth');
 
-        return view('bills.index')
-            ->with('bills', $bills);
+
+        return view('bills.index')->with(compact('bills', 'graphData'));
     }
 
     /**
@@ -38,7 +44,8 @@ class BillController extends AppBaseController
     public function create()
     {
         $items = BillItem::orderBy('name')->get();
-        return view('bills.create')->with(compact('items'));
+        $bills = Bill::where('user_id', Auth::id())->orderBy('name')->get();
+        return view('bills.create')->with(compact('items', 'bills'));
     }
 
     /**

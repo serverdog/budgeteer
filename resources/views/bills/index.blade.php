@@ -1,26 +1,28 @@
 @extends('layouts.app')
+@section('pageTitle', 'Bills')
+
+@push('js')
+<script src="/theme/vendor/chart.js/Chart.min.js"></script>
+@endpush
 
 @section('content')
-    <section class="content-header">
-        <h1 class="pull-left">Bills</h1>
-        <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{{ route('bills.create') }}">Configure</a>
-        </h1>
-    </section>
-    <div class="content">
-        <div class="clearfix"></div>
 
-        @include('flash::message')
 
-        <div class="clearfix"></div>
+
+    @include('bills.partials.bills_graph')
+
+    @component("card", ["size" => "12 border-dark no-padding card-full" , "title_bg" => "bg-gradient-primary text-gray-100","title" => "Bills"])
+
+
+
         <div class="box box-primary">
             <div class="box-body">
-                    @include('bills.table')
+                <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px"
+                    href="{{ route('bills.create') }}">Configure</a>
+
+                @include('bills.table')
             </div>
         </div>
-        <div class="text-center">
-        
-        </div>
-    </div>
-@endsection
 
+    @endcomponent
+@endsection

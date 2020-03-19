@@ -22,6 +22,9 @@ class CreateBillsTable extends Migration
             $table->decimal('weekly')->nullable();
             $table->decimal('monthly')->nullable();
             $table->decimal('yearly')->nullable();
+            $table->unsignedInteger('weekday')->nullable();
+            $table->unsignedInteger('dayofmonth')->nullable();
+            $table->date('date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

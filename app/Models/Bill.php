@@ -37,7 +37,10 @@ class Bill extends Model
         'name',
         'weekly',
         'monthly',
-        'yearly'
+        'yearly',
+        'weekday',
+        'dayofmonth',
+        'date'
     ];
 
     /**
@@ -51,7 +54,11 @@ class Bill extends Model
         'name' => 'string',
         'weekly' => 'float',
         'monthly' => 'float',
-        'yearly' => 'float'
+        'yearly' => 'float',
+        'weekday' => 'integer',
+        'dayofmonth' => 'integer',
+        'date' => 'date',
+
     ];
 
     /**

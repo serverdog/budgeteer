@@ -1,5 +1,7 @@
 @component("card", ["size" => "12 border-dark no-padding card-full" , "title_bg" => "bg-gradient-success text-gray-100", "title" => "Household Bills"])
-
+<p>For this section, please list out any household or regular bills. Do not include any loan, finance or mortgage payments here.</p>
+<p>Remove any categories that you don't need, and feel free to rename them to something that makes sense to you.</p>
+<p>You only need to fill in either weekly, monthly or yearly.</p>
 <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
@@ -8,15 +10,40 @@
                 <th>Weekly Cost</th>
                 <th>Monthly Cost</th>
                 <th>Yearly Cost</th>
+                <th>Day of the Month</th>
             </tr>
         </thead> 
         <tbody>
-            @if ($items->count())
+            @if ($bills->count())
+
+                @foreach ($bills as $item)
+                    <tr>
+                        <td width='50%'>
+                            <a href="#" class="btn-circle btn-danger btn-sm removeRow"><i class="fas fa-times"></i></a>
+                            {!! Form::text($item->id.'[name]', $item->name,['class'=>'col-10']) !!}
+                        </td>
+                        <td>
+                            {!! Form::number($item->id.'[weekly]',  $item->weekly, ['class' => 'form-control','step'=>'any']) !!}
+                        </td>
+                        <td>
+                            {!! Form::number($item->id.'[monthly]',  $item->monthly, ['class' => 'form-control','step'=>'any']) !!}
+                        </td>
+                        <td>
+                            {!! Form::number($item->id.'[yearly]',  $item->yearly, ['class' => 'form-control','step'=>'any']) !!}
+                        </td>
+                        <td>
+                            {!! Form::number($item->id.'[dayofmonth]',  $item->dayofmonth, ['class' => 'form-control','step'=>'any']) !!}
+                        </td>
+                    </tr>
+
+                @endforeach
+           
+            @elseif ($items->count())
 
                 @foreach ($items as $item)
                     <tr>
                         <td width='50%'>
-                            <a href="#" class="btn btn-danger btn-sm removeRow"><i class="fas fa-times"></i></a>
+                            <a href="#" class="btn-circle btn-danger btn-sm removeRow"><i class="fas fa-times"></i></a>
                             {!! Form::text($item->id.'[name]', $item->name,['class'=>'col-10']) !!}
                         </td>
                         <td>
@@ -24,6 +51,9 @@
                         </td>
                         <td>
                             {!! Form::number($item->id.'[monthly]',  null, ['class' => 'form-control','step'=>'any']) !!}
+                        </td>
+                        <td>
+                            {!! Form::number($item->id.'[yearly]',  null, ['class' => 'form-control','step'=>'any']) !!}
                         </td>
                         <td>
                             {!! Form::number($item->id.'[yearly]',  null, ['class' => 'form-control','step'=>'any']) !!}

@@ -10,7 +10,6 @@
        
         <div class="box box-primary">
             <div class="box-body">
-                
                     {!! Form::open(['route' => 'bills.store']) !!}
                     <div class="row">
                         @include('bills.fields')
