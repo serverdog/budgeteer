@@ -7,7 +7,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Budgeteer') }}</title>
+        <title>@yield('title', config('app.name', 'Budgeteer') )</title>
        
         <link href="/theme/css/glyphicons.css" rel="stylesheet">
           <!-- Custom fonts for this template-->
@@ -106,7 +106,7 @@
           <script src="/theme/vendor/jquery-easing/jquery.easing.min.js"></script>
         
           <!-- Custom scripts for all pages-->
-          <script src="/theme/js/sb-admin-2.min.js"></script>
+          <script src="/theme/js/sb-admin-2.js"></script>
           @stack('js')
           
         

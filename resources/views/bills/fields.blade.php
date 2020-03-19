@@ -1,74 +1,79 @@
 @component("card", ["size" => "12 border-dark no-padding card-full" , "title_bg" => "bg-gradient-success text-gray-100", "title" => "Household Bills"])
-<p>For this section, please list out any household or regular bills. Do not include any loan, finance or mortgage payments here.</p>
-<p>Remove any categories that you don't need, and feel free to rename them to something that makes sense to you.</p>
-<p>You only need to fill in either weekly, monthly or yearly.</p>
-<div class="table-responsive">
-    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Bill</th>
-                <th>Weekly Cost</th>
-                <th>Monthly Cost</th>
-                <th>Yearly Cost</th>
-                <th>Day of the Month</th>
-            </tr>
-        </thead> 
-        <tbody>
-            @if ($bills->count())
+    <p>For this section, please list out any household or regular bills. Do not include any loans or mortgage payments here. 
+        Use the <a href='{!! route('liabilities.index') !!}'>Loans</a> section for that.</p>
 
-                @foreach ($bills as $item)
-                    <tr>
-                        <td width='50%'>
-                            <a href="#" class="btn-circle btn-danger btn-sm removeRow"><i class="fas fa-times"></i></a>
-                            {!! Form::text($item->id.'[name]', $item->name,['class'=>'col-10']) !!}
-                        </td>
-                        <td>
-                            {!! Form::number($item->id.'[weekly]',  $item->weekly, ['class' => 'form-control','step'=>'any']) !!}
-                        </td>
-                        <td>
-                            {!! Form::number($item->id.'[monthly]',  $item->monthly, ['class' => 'form-control','step'=>'any']) !!}
-                        </td>
-                        <td>
-                            {!! Form::number($item->id.'[yearly]',  $item->yearly, ['class' => 'form-control','step'=>'any']) !!}
-                        </td>
-                        <td>
-                            {!! Form::number($item->id.'[dayofmonth]',  $item->dayofmonth, ['class' => 'form-control','step'=>'any']) !!}
-                        </td>
-                    </tr>
+    @if (!$bills->count())    
+        <p>We've got you started with the most common bills, but feel free to remove any that you don't need, or rename them to something that makes sense to you.</p>
+    @endif
 
-                @endforeach
-           
-            @elseif ($items->count())
+    <p>You only need to fill in either weekly, monthly or yearly.</p>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Bill</th>
+                    <th>Weekly Cost</th>
+                    <th>Monthly Cost</th>
+                    <th>Yearly Cost</th>
+                    <th>Day of the Month</th>
+                </tr>
+            </thead> 
+            <tbody>
+                @if ($bills->count())
 
-                @foreach ($items as $item)
-                    <tr>
-                        <td width='50%'>
-                            <a href="#" class="btn-circle btn-danger btn-sm removeRow"><i class="fas fa-times"></i></a>
-                            {!! Form::text($item->id.'[name]', $item->name,['class'=>'col-10']) !!}
-                        </td>
-                        <td>
-                            {!! Form::number($item->id.'[weekly]',  null, ['class' => 'form-control','step'=>'any']) !!}
-                        </td>
-                        <td>
-                            {!! Form::number($item->id.'[monthly]',  null, ['class' => 'form-control','step'=>'any']) !!}
-                        </td>
-                        <td>
-                            {!! Form::number($item->id.'[yearly]',  null, ['class' => 'form-control','step'=>'any']) !!}
-                        </td>
-                        <td>
-                            {!! Form::number($item->id.'[yearly]',  null, ['class' => 'form-control','step'=>'any']) !!}
-                        </td>
-                    </tr>
+                    @foreach ($bills as $item)
+                        <tr>
+                            <td width='50%'>
+                                <a href="#" class="btn-circle btn-danger btn-sm removeRow"><i class="fas fa-times"></i></a>
+                                {!! Form::text($item->id.'[name]', $item->name,['class'=>'col-10']) !!}
+                            </td>
+                            <td>
+                                {!! Form::number($item->id.'[weekly]',  $item->weekly, ['class' => 'form-control','step'=>'any']) !!}
+                            </td>
+                            <td>
+                                {!! Form::number($item->id.'[monthly]',  $item->monthly, ['class' => 'form-control','step'=>'any']) !!}
+                            </td>
+                            <td>
+                                {!! Form::number($item->id.'[yearly]',  $item->yearly, ['class' => 'form-control','step'=>'any']) !!}
+                            </td>
+                            <td>
+                                {!! Form::number($item->id.'[dayofmonth]',  $item->dayofmonth, ['class' => 'form-control','step'=>'any']) !!}
+                            </td>
+                        </tr>
 
-                @endforeach
-            @endif
-        </tbody>
-    </table>
-</div>
-<div class="form-group col-sm-12">
-    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{{ route('bills.index') }}" class="btn btn-default">Cancel</a>
-</div>
+                    @endforeach
+            
+                @elseif ($items->count())
+
+                    @foreach ($items as $item)
+                        <tr>
+                            <td width='50%'>
+                                <a href="#" class="btn-circle btn-danger btn-sm removeRow"><i class="fas fa-times"></i></a>
+                                {!! Form::text($item->id.'[name]', $item->name,['class'=>'col-10']) !!}
+                            </td>
+                            <td>
+                                {!! Form::number($item->id.'[weekly]',  null, ['class' => 'form-control','step'=>'any']) !!}
+                            </td>
+                            <td>
+                                {!! Form::number($item->id.'[monthly]',  null, ['class' => 'form-control','step'=>'any']) !!}
+                            </td>
+                            <td>
+                                {!! Form::number($item->id.'[yearly]',  null, ['class' => 'form-control','step'=>'any']) !!}
+                            </td>
+                            <td>
+                                {!! Form::number($item->id.'[yearly]',  null, ['class' => 'form-control','step'=>'any']) !!}
+                            </td>
+                        </tr>
+
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group col-sm-12">
+        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+        <a href="{{ route('bills.index') }}" class="btn btn-default">Cancel</a>
+    </div>
 
 @endcomponent
     

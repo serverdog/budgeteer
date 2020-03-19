@@ -8,6 +8,7 @@ use App\Models\Balance;
 use App\Models\Summary;
 use App\Models\HistorySummary;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
@@ -28,6 +29,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+/*        $password = 'password';
+        $secret = "Mortgage details";
+        $key= pbkdf2($password, Config::get('app.key'));
+        Crypt::setKey($key);
+        $encypted = Crypt::encrypt($input);
+        $decypted = Crypt::decrypt($encypted);
+        dd($key, $encrypted, $decrypted);
+*/
         $accounts = Account::count();
         $funds    = Summary::get();
         $details  = Balance::with(['Account','Account.Accounttype.Category'])->where('latest', 1)->get();

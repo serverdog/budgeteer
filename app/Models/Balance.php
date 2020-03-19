@@ -113,9 +113,8 @@ class Balance extends Model
         return $this->belongsTo(\App\Models\Currency::class, 'currency_id');
     }
 
-    public function scopeLatest($query)
+    public function scopeOnlyLatest($query)
     {
-        dd('here');
         return $query->where('latest', 1);
     }
 }

@@ -13,6 +13,8 @@
         </div>
     </div>
 </div>
+
+@isset($historyByDate)
 @php
     $historyByDate = $history->groupBy(function ($item) {
         return $item->date->format('Y-m-d'); 
@@ -122,3 +124,4 @@ var MONTHS = ["{!! $historyByDate->keys()->join('","') !!}"];
 </script>
 
 @endpush
+@endisset

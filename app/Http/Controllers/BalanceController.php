@@ -38,7 +38,7 @@ class BalanceController extends AppBaseController
     public function create()
     {
         $accounts = Account::with('Accounttype', 'Accounttype.Category')->orderBy('accounttype_id')->get();
-        $balances = Balance::latest()->pluck('amount', 'account_id');
+        $balances = Balance::onlyLatest()->pluck('amount', 'account_id');
 
         return view('balances.create')->with(compact('accounts', 'balances'));
     }

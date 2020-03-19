@@ -5,11 +5,16 @@
     <div class="card-body">
         @if ($details->count())
         @php
+        $categories = collect($details->groupBy('Account.Accounttype.Category.name')->forget(['Long Term Savings', 'Long Term Liabilities']));
+       
 
-        $categories = $details->groupBy('Account.Accounttype.Category.name')->forget(['Long Term Savings', 'Long Term Liabilities']);
-        $availableCash = $categories->get('Instant Funds', 0)->pluck('amount')->sum()
-                        + $categories->get('Stashed Cash', 0)->pluck('amount')->sum()
-                        - $categories->get('Short Term Liabilities', 0)->pluck('amount')->sum();
+        $availableCash = 0;
+
+        $availableCash += $categories->has('Instant Funds') ? $categories->get('Instant Funds')->pluck('amount')->sum() : 0;
+
+        $availableCash += $categories->has('Stashed Funds') ? $categories->get('Stashed Cash')->pluck('amount')->sum() : 0;
+        $availableCash -=  $categories->has('Short Term Liabilities') ? $categories->get('Short Term Liabilities')->pluck('amount')->sum() : 0;
+
         $totalBillsPerMonth = $bills->pluck('monthlyCost')->sum() ?? 0;
         $daysFinanced = $totalBillsPerMonth > 0 ? round($availableCash / $totalBillsPerMonth * 30) : 0;
         @endphp
@@ -42,7 +47,18 @@
                     <tr class='bg-gradient-warning text-gray-100'>
                         <td>Monthly Bills</td>
 
-                        <td class='text-right'>&pound;{{format($totalBillsPerMonth)}}</td>
+                        <td class='text-right'>
+                            @if ($totalBillsPerMonth > 0)
+                                &pound;{{format($totalBillsPerMonth)}}
+                            @else 
+                            <a href="{!! route('bills.index') !!}" class="btn btn-danger btn-icon-split btn-sm">
+                                <span class="icon text-white-50">
+                                  <i class="fas fa-flag"></i>
+                                </span>
+                                <span class="text">Setup your bills to see this</span>
+                              </a>
+                            @endif
+                        </td>
                     </tr>
                     <tr class='bg-gradient-primary text-gray-100'>
                         <td>Sustainability<sup>*</sup> ({{ $daysFinanced }} days)</td>
@@ -54,6 +70,7 @@
             </table>
             <sup>*</sup> If all your income stopped today, and your outgoings remained the same, how many days coud you support yourself. Excludes future income and unexpected costs
         </div>
+        @endif
     </div>
-    @endif
+  
 </div>
