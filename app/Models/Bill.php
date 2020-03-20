@@ -107,4 +107,20 @@ class Bill extends Model
 
         return null;
     }
+
+    public static function saveManyBills(array $rows, int $user_id)
+    {
+        foreach ($rows as $row) {
+            if ($row['period'] == 'Monthly'){
+                unset($row['weekly'], $row['yearly'], $row['weekday'], $row['date']);
+            } elseif ($row['period'] == 'Weekly'){
+                unset($row['monthly'], $row['yearly'], $row['dayofmonth'], $row['date']);
+            } else {
+                unset($row['weekly'], $row['monthly'], $row['weekday'], $row['dayofmonth']);
+            }
+            $row['user_id'] = $user_id;
+            $bill = self::create($row);
+            $bill->save();
+        }
+    }
 }

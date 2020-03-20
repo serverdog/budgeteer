@@ -61,12 +61,7 @@ class BillController extends AppBaseController
         $user_id = Auth::id();
 
         Bill::where('user_id', $user_id)->delete();
-
-        foreach ($rows as $row) {
-            $row['user_id'] = $user_id;
-            $bill = Bill::create($row);
-            $bill->save();
-        }
+        Bill::saveManyBills($rows, $user_id);
 
         Flash::success('Bill saved successfully.');
 
