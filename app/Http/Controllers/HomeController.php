@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
+use App\Models\Income;
 use App\Models\Account;
 use App\Models\Balance;
 use App\Models\Summary;
@@ -44,7 +45,8 @@ class HomeController extends Controller
         $bills = Bill::get();
         $history = HistorySummary::get();
         $user = Auth::user()->fresh();
+        $income = Income::get();
 
-        return view('home.dashboard')->with(compact('accounts', 'funds', 'details', 'bills', 'history', 'user'));
+        return view('home.dashboard')->with(compact('accounts', 'funds', 'details', 'bills', 'history', 'user', 'income'));
     }
 }

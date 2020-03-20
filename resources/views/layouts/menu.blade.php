@@ -30,3 +30,7 @@
     <a href="{{ route('billItems.index') }}"><i class="fa fa-edit"></i><span>Bill Items</span></a>
 </li>
 
+<li class="{{ Request::is('incomes*') ? 'active' : '' }}">
+    <a href="{{ route('incomes.index') }}"><i class="fa fa-edit"></i><span>Incomes</span></a>
+</li>
+

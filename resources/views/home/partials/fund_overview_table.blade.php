@@ -15,7 +15,9 @@
         $availableCash -=  $categories->has('Short Term Liabilities') ? $categories->get('Short Term Liabilities')->pluck('amount')->sum() : 0;
 
         $totalBillsPerMonth = ($bills->pluck('monthlyCost')->sum() ?? 0) ;
-        $monthlyOutgoings = $totalBillsPerMonth + $user->incidentals;
+
+        $regularIncome = $income->count() ? $income->pluck('amount')->sum() : 0;
+        $monthlyOutgoings = $totalBillsPerMonth + $user->incidentals - $regularIncome;
         $daysFinanced = ($totalBillsPerMonth + $user->incidentals) > 0 ? round($availableCash / $monthlyOutgoings * 30) : 0;
         @endphp
 
@@ -59,7 +61,23 @@
                             </a>
                             &pound;{{format($user->incidentals )}}
                         </td>
-                    </tr>                    
+                    </tr>   
+                    <tr class='bg-gradient-success text-gray-100'>
+                        <td>Regular Income</td>
+
+                        <td class='text-right'>
+                            @if ($income->count() > 0)
+                                &pound;{{format($income->pluck('amount')->sum())}}
+                            @else 
+                            <a href="{!! route('incomes.index') !!}" class="btn btn-danger btn-icon-split btn-sm">
+                                <span class="icon text-white-50">
+                                  <i class="fas fa-flag"></i>
+                                </span>
+                                <span class="text">Setup your regular incomes</span>
+                              </a>
+                            @endif
+                        </td>
+                    </tr>                                     
                     <tr class='bg-gradient-warning text-gray-100'>
                         <td>Monthly Bills</td>
 
