@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Summary extends Model
 {
     protected $casts = [
-        'id' => 'integer',
+        'id'      => 'integer',
         'user_id' => 'integer',
-        'name' => 'string',
-        'total' => 'float'
+        'name'    => 'string',
+        'total'   => 'float'
     ];
 
     /**

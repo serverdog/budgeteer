@@ -43,8 +43,8 @@ class HomeController extends Controller
         $details  = Balance::with(['Account','Account.Accounttype.Category'])->where('latest', 1)->get();
         $bills = Bill::get();
         $history = HistorySummary::get();
-       
+        $user = Auth::user()->fresh();
 
-        return view('home.dashboard')->with(compact('accounts', 'funds', 'details', 'bills', 'history'));
+        return view('home.dashboard')->with(compact('accounts', 'funds', 'details', 'bills', 'history', 'user'));
     }
 }

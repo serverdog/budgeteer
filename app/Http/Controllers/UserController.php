@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
+use App\Models\Currency;
+use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -51,7 +54,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $user = Auth::user()->fresh();
+        $currencies = Currency::pluck('name', 'id');
+        return view('users.edit', compact('user', 'currencies'));
     }
 
     /**
@@ -61,14 +66,14 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UserRequest $request, User  $user)
+    public function update(Request $request, User  $user)
     {
         $user->update(
             $request->merge(['password' => Hash::make($request->get('password'))])
                 ->except([$request->get('password') ? '' : 'password']
         ));
 
-        return redirect()->route('user.index')->withStatus(__('User successfully updated.'));
+        return redirect()->route('home')->withStatus(__('User successfully updated.'));
     }
 
     /**

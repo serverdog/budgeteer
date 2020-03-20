@@ -14,8 +14,9 @@
         $availableCash += $categories->has('Stashed Cash') ? $categories->get('Stashed Cash')->pluck('amount')->sum() : 0;
         $availableCash -=  $categories->has('Short Term Liabilities') ? $categories->get('Short Term Liabilities')->pluck('amount')->sum() : 0;
 
-        $totalBillsPerMonth = $bills->pluck('monthlyCost')->sum() ?? 0;
-        $daysFinanced = $totalBillsPerMonth > 0 ? round($availableCash / $totalBillsPerMonth * 30) : 0;
+        $totalBillsPerMonth = ($bills->pluck('monthlyCost')->sum() ?? 0) ;
+        $monthlyOutgoings = $totalBillsPerMonth + $user->incidentals;
+        $daysFinanced = ($totalBillsPerMonth + $user->incidentals) > 0 ? round($availableCash / $monthlyOutgoings * 30) : 0;
         @endphp
 
         <div class="table-responsive">
@@ -41,7 +42,23 @@
                         <td class='text-right'>&pound;{{format($availableCash )}}</td>
                     </tr>
                     <tr class='bg-gray-100'>
-                        <td colspan='2'>&nbsp;</td>
+                        <td>
+                            Monthly Incidentals
+                            &nbsp; 
+                            <span class="btn-circle btn-sm" data-toggle="tooltip" data-placement="top" title="Approximation of funds used during the month, eg cash withdrawls and purchases, groceries etc.">
+                                <i class="fas fa-info-circle"></i>
+                            </span>
+                            
+                        </td>
+
+                        <td class='text-right'>
+                            <a href="{!! route('profile.edit') !!}" class="btn-circle btn-sm btn-primary float-left">
+                                <span class="icon text-white-50">
+                                <i class="fas fa-pen"></i>
+                                </span>
+                            </a>
+                            &pound;{{format($user->incidentals )}}
+                        </td>
                     </tr>                    
                     <tr class='bg-gradient-warning text-gray-100'>
                         <td>Monthly Bills</td>
