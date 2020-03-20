@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Eloquent as Model;
+use App\Scopes\LoggedInUserScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -44,11 +45,11 @@ class Liability extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'user_id' => 'integer',
+        'id'        => 'integer',
+        'user_id'   => 'integer',
         'period_id' => 'integer',
-        'amount' => 'float',
-        'due' => 'date'
+        'amount'    => 'float',
+        'due'       => 'date'
     ];
 
     /**
@@ -57,12 +58,21 @@ class Liability extends Model
      * @var array
      */
     public static $rules = [
-        'user_id' => 'required',
-        'period_id' => 'required',
-        'amount' => 'required',
-        'due' => 'required'
+
     ];
 
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new LoggedInUserScope);
+    }
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/

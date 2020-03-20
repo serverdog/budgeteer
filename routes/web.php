@@ -29,6 +29,7 @@ Route::resource('accounts', 'AccountController');
 Route::resource('currencies', 'CurrencyController');
 
 Route::resource('liabilities', 'LiabilityController');
+Route::resource('loans', 'LiabilityController');
 
 Route::resource('periods', 'PeriodController');Auth::routes();
 

@@ -2,20 +2,18 @@
     <table class="table" id="liabilities-table">
         <thead>
             <tr>
-                <th>User Id</th>
-        <th>Period Id</th>
-        <th>Amount</th>
-        <th>Due</th>
+                <th>Period</th>
+                <th>Amount</th>
+                <th>Due</th>
                 <th colspan="3">Action</th>
             </tr>
         </thead>
         <tbody>
         @foreach($liabilities as $liability)
             <tr>
-                <td>{{ $liability->user_id }}</td>
-            <td>{{ $liability->period_id }}</td>
-            <td>{{ $liability->amount }}</td>
-            <td>{{ $liability->due }}</td>
+                <td>{{ $liability->period_id }}</td>
+                <td>{{ $liability->amount }}</td>
+                <td>{{ $liability->due }}</td>
                 <td>
                     {!! Form::open(['route' => ['liabilities.destroy', $liability->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

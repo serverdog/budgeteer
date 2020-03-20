@@ -14,7 +14,7 @@
     </div>
 </div>
 
-@isset($historyByDate)
+@isset($history)
 @php
     $historyByDate = $history->groupBy(function ($item) {
         return $item->date->format('Y-m-d'); 

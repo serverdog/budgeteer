@@ -56,6 +56,11 @@ class AccountController extends AppBaseController
         /** @var Account $account */
         $account = Account::create($input);
 
+        if (in_array($input['accounttype_id'], Accounttype::$debtAccountTypes)) {
+            $input['account_id'] = $account->id;
+            dd($input);
+        }
+
         Flash::success('Account saved successfully.');
 
         return redirect(route('accounts.index'));

@@ -11,8 +11,7 @@
         $availableCash = 0;
 
         $availableCash += $categories->has('Instant Funds') ? $categories->get('Instant Funds')->pluck('amount')->sum() : 0;
-
-        $availableCash += $categories->has('Stashed Funds') ? $categories->get('Stashed Cash')->pluck('amount')->sum() : 0;
+        $availableCash += $categories->has('Stashed Cash') ? $categories->get('Stashed Cash')->pluck('amount')->sum() : 0;
         $availableCash -=  $categories->has('Short Term Liabilities') ? $categories->get('Short Term Liabilities')->pluck('amount')->sum() : 0;
 
         $totalBillsPerMonth = $bills->pluck('monthlyCost')->sum() ?? 0;

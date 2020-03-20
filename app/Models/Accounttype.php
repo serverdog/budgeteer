@@ -52,6 +52,16 @@ class Accounttype extends Model
     ];
 
     /**
+     * $debtAccountTypes
+     * 
+     * Which accounts are loans from other institutions
+     * We need these added to the Liabilities / Loans
+     *
+     * @var array
+     */
+    public static $debtAccountTypes = [4,5,8,9,10,11];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function accounts()
