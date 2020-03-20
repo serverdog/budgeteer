@@ -55,10 +55,15 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{!! route('incomes.index') !!}">
-            <i class="fas fa-fw fa-receipt"></i>
+            <i class="fas fa-fw fa-hand-holding-usd"></i>
             <span>Other Income</span></a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="{!! route('selfAssessments.index') !!}">
+            <i class="fas fa-fw fa-landmark"></i>
+            <span>Self Assessments</span></a>
+    </li>
 
 
 

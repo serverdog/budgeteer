@@ -51,3 +51,5 @@ Route::resource('bills', 'BillController');
 Route::resource('billItems', 'BillItemController');
 
 Route::resource('incomes', 'IncomeController');
+
+Route::resource('selfAssessments', 'SelfAssessmentController');

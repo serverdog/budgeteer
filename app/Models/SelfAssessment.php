@@ -7,22 +7,27 @@ use App\Scopes\LoggedInUserScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Liability
+ * Class SelfAssessment
  * @package App\Models
- * @version February 7, 2020, 1:43 pm UTC
+ * @version March 20, 2020, 1:09 pm UTC
  *
- * @property \App\Models\Period period
  * @property \App\Models\User user
  * @property integer user_id
- * @property integer period_id
- * @property number amount
- * @property string due
+ * @property string year
+ * @property string name
+ * @property number total_dividends
+ * @property number share
+ * @property number salary
+ * @property number savings
+ * @property number other
+ * @property number july_payment
+ * @property boolean active
  */
-class Liability extends Model
+class SelfAssessment extends Model
 {
     use SoftDeletes;
 
-    public $table = 'liabilities';
+    public $table = 'self_assessments';
     
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
@@ -34,10 +39,15 @@ class Liability extends Model
 
     public $fillable = [
         'user_id',
-        'account_id',
+        'year',
         'name',
-        'amount',
-        'due'
+        'total_dividends',
+        'share',
+        'salary',
+        'savings',
+        'other',
+        'july_payment',
+        'active'
     ];
 
     /**
@@ -46,12 +56,17 @@ class Liability extends Model
      * @var array
      */
     protected $casts = [
-        'id'         => 'integer',
-        'user_id'    => 'integer',
-        'account_id' => 'integer',
-        'name'       => 'string',
-        'amount'     => 'float',
-        'due'        => 'date'
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'year' => 'string',
+        'name' => 'string',
+        'total_dividends' => 'float',
+        'share' => 'float',
+        'salary' => 'float',
+        'savings' => 'float',
+        'other' => 'float',
+        'july_payment' => 'float',
+        'active' => 'boolean'
     ];
 
     /**
@@ -62,6 +77,14 @@ class Liability extends Model
     public static $rules = [
 
     ];
+
+    public static $years = ['2018/19', '2019/20'];
+
+    public static function getYears()
+    {
+        return array_combine(self::$years, self::$years);
+    }
+
 
     /**
      * The "booting" method of the model.
@@ -75,14 +98,6 @@ class Liability extends Model
         static::addGlobalScope(new LoggedInUserScope);
     }
     
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
-    public function period()
-    {
-        return $this->belongsTo(\App\Models\Period::class, 'period_id');
-    }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/

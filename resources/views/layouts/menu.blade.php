@@ -34,3 +34,7 @@
     <a href="{{ route('incomes.index') }}"><i class="fa fa-edit"></i><span>Incomes</span></a>
 </li>
 
+<li class="{{ Request::is('selfAssessments*') ? 'active' : '' }}">
+    <a href="{{ route('selfAssessments.index') }}"><i class="fa fa-edit"></i><span>Self Assessments</span></a>
+</li>
+

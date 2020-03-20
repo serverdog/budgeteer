@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateLiabilityRequest;
-use App\Http\Requests\UpdateLiabilityRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\Liability;
-use Illuminate\Http\Request;
 use Flash;
 use Response;
+use App\Models\Account;
+use App\Models\Liability;
+use App\Models\Accounttype;
+use Illuminate\Http\Request;
+use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\CreateLiabilityRequest;
+use App\Http\Requests\UpdateLiabilityRequest;
 
 class LiabilityController extends AppBaseController
 {
@@ -35,7 +37,8 @@ class LiabilityController extends AppBaseController
      */
     public function create()
     {
-        return view('liabilities.create');
+        $accounts = Account::whereIn('accounttype_id', Accounttype::$debtAccountTypes)->pluck('name', 'id');
+        return view('liabilities.create')->with(compact('accounts'));
     }
 
     /**
