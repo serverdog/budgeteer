@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateSelfAssessmentRequest;
-use App\Http\Requests\UpdateSelfAssessmentRequest;
-use App\Http\Controllers\AppBaseController;
-use App\Models\SelfAssessment;
-use Illuminate\Http\Request;
 use Flash;
 use Response;
+use Illuminate\Http\Request;
+use App\Models\SelfAssessment;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\CreateSelfAssessmentRequest;
+use App\Http\Requests\UpdateSelfAssessmentRequest;
 
 class SelfAssessmentController extends AppBaseController
 {
@@ -49,7 +50,8 @@ class SelfAssessmentController extends AppBaseController
     public function store(CreateSelfAssessmentRequest $request)
     {
         $input = $request->all();
-
+        $input['user_id'] = Auth::id();
+        
         /** @var SelfAssessment $selfAssessment */
         $selfAssessment = SelfAssessment::create($input);
 

@@ -2,32 +2,34 @@
     <table class="table" id="selfAssessments-table">
         <thead>
             <tr>
-                <th>User Id</th>
-        <th>Year</th>
-        <th>Name</th>
-        <th>Total Dividends</th>
-        <th>Share</th>
-        <th>Salary</th>
-        <th>Savings</th>
-        <th>Other</th>
-        <th>July Payment</th>
-        <th>Active</th>
+                
+                <th>Year</th>
+                <th>Name</th>
+                <th>Total Dividends</th>
+                <th>Share</th>
+                <th>Salary</th>
+                <th>Savings</th>
+                <th>Other</th>
+                <th>July Payment</th>
+                <th>Tax Due</th>
+                <th>Active</th>
                 <th colspan="3">Action</th>
             </tr>
         </thead>
         <tbody>
         @foreach($selfAssessments as $selfAssessment)
             <tr>
-                <td>{{ $selfAssessment->user_id }}</td>
-            <td>{{ $selfAssessment->year }}</td>
-            <td>{{ $selfAssessment->name }}</td>
-            <td>{{ $selfAssessment->total_dividends }}</td>
-            <td>{{ $selfAssessment->share }}</td>
-            <td>{{ $selfAssessment->salary }}</td>
-            <td>{{ $selfAssessment->savings }}</td>
-            <td>{{ $selfAssessment->other }}</td>
-            <td>{{ $selfAssessment->july_payment }}</td>
-            <td>{{ $selfAssessment->active }}</td>
+                
+                <td>{{ $selfAssessment->year }}</td>
+                <td>{{ $selfAssessment->name }}</td>
+                <td>{{ format($selfAssessment->total_dividends) }}</td>
+                <td>{{ $selfAssessment->share }}</td>
+                <td>{{ format($selfAssessment->salary) }}</td>
+                <td>{{ format($selfAssessment->savings) }}</td>
+                <td>{{ format($selfAssessment->other) }}</td>
+                <td>{{ format($selfAssessment->july_payment) }}</td>
+                <td>{{ format($selfAssessment->tax) }}</td>
+                <td>{{ $selfAssessment->active == 1 ? "Yes" : "No" }}</td>
                 <td>
                     {!! Form::open(['route' => ['selfAssessments.destroy', $selfAssessment->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

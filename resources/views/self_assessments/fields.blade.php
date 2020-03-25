@@ -13,17 +13,17 @@
             <!-- Total Dividends Field -->
             <div class="form-group col-sm-3">
                 {!! Form::label('total_dividends', 'Total Dividends:') !!}
-                {!! Form::number('total_dividends', null, ['class' => 'form-control','id'=>'totalDividends']) !!}
+                {!! Form::number('total_dividends', 43900, ['class' => 'form-control','id'=>'totalDividends']) !!}
             </div>
             <div class="form-group col-sm-6">
-                If dividends are shared from one company, enter the total amount of dividends issued here, and then allocate the share to the different people below. the dividends will automatically be distributed. Otherwise leave this blank and allocated 100% to the share below.
+                If dividends are shared from one company, enter the total amount of dividends issued here, and then allocate the share below. 
             </div>
         </div>
        
     <table class='table table-striped' id='inputTable'>
         <thead>
             <tr>
-                <th>&nbsp;</th>
+               
                 <th>Name</th>
                 <th>Salary</th>
                 <th>Savings interest</th>
@@ -36,25 +36,22 @@
         </thead>
         <tbody>
             <tr class='dividendRow' id='row1'>
-                <td> 
-                    <a href="#" class="btn-circle btn-danger btn-sm removeRow float-left mr-2"><i class="fas fa-times"></i></a>
-                    <span class="btn-circle btn-info btn-sm float-left mr-2 details"><i class="fas fa-eye"></i></span>
-                </td>
+                
                 <td>
-                    {!! Form::text('0.[name', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </td>
-                <td>{!! Form::number('0.[salary]', null, ['class' => 'form-control salary','step'=>'any']) !!}</td>
-                <td>{!! Form::number('0.[savings]', null, ['class' => 'form-control savings','step'=>'any']) !!}</td>
-                <td>{!! Form::number('0.[other]', null, ['class' => 'form-control other','step'=>'any']) !!}</td>
-                <td>{!! Form::number('0.[july_payment]', null, ['class' => 'form-control payment','step'=>'any']) !!}</td>
-                <td>{!! Form::number('0.[share]', null, ['class' => 'form-control share','step'=>'any']) !!}</td>
-                <td>{!! Form::number('0.[dividend_amount]', null, ['class' => 'form-control dividend','step'=>'any']) !!}</td>
-                <td>{!! Form::number('0.[tax]', null, ['class' => 'form-control tax','step'=>'any']) !!}</td>
+                <td>{!! Form::number('salary', 8630.96, ['class' => 'form-control salary','step'=>'any']) !!}</td>
+                <td>{!! Form::number('savings', 100, ['class' => 'form-control savings','step'=>'any']) !!}</td>
+                <td>{!! Form::number('other', null, ['class' => 'form-control other','step'=>'any']) !!}</td>
+                <td>{!! Form::number('july_payment', null, ['class' => 'form-control payment','step'=>'any']) !!}</td>
+                <td>{!! Form::number('share', null, ['class' => 'form-control share','step'=>'any']) !!}</td>
+                <td>{!! Form::number('dividend_amount', null, ['class' => 'form-control dividend','step'=>'any']) !!}</td>
+                <td>{!! Form::number('tax', null, ['class' => 'form-control tax','step'=>'any','id'=>'taxInput']) !!}</td>
                 
             </tr>
         </tbody>
     </table>
-    <span class="btn btn-success btn-sm float-left mr-2" id="addRow"><i class="fas fa-plus"></i> Add Row</span>
+   
     
 
    
@@ -136,11 +133,15 @@
                  <td>Dividends Higher Rate (32.5% for £112.5k)</td>                
                  <td id='higherDividendAllowance'></td>                
                  <td id='higherDividendTax' class='taxTotals'></td>                
-              </tr>             
-         </tbody>
+              </tr>   
+              <tr>
+                <td>Total</td>                
+                <td></td>                
+                <td id='TotalTaxPayable'></td>                
+             </tr>   
+        </tbody>
     </table>    
 @endcomponent    
-
 @push('js')
 
 <script type="text/javascript">
@@ -256,38 +257,40 @@ function format(number)
                 
             /**
              * Earnings
-             * 
+             * 8630.96
              * */
-             if (earningsExSavings <= PA) {
+            if (earningsExSavings <= PA) {
                 $('#basicIncomeAllowance').html(format(0)).attr('data-value',0);
                 $('#basicIncomeTax').html(format(0)).attr('data-value',0);
-            }
-            earningsExSavings = earningsExSavings - PA;
-            if (earningsExSavings <= 37500) {
-                var allowance = earningsExSavings,
-                    tax = earningsExSavings * 0.2;
-                earningsExSavings = 0;
+                
             } else {
-                var allowance = 37500,
-                    tax = 37500 * 0.2;
-                earningsExSavings -= 37500;
-            }
-            $('#basicIncomeAllowance').html(format(allowance)).attr('data-value',allowance);
-            $('#basicIncomeTax').html(format(tax)).attr('data-value',tax);
-             
-            if (earningsExSavings <= 112500) {
-                var allowance = earningsExSavings,
-                    tax = earningsExSavings * 0.4;
-                earningsExSavings = 0;
-            } else {
-                var allowance = 112500,
-                    tax = 112500 * 0.4;
-                earningsExSavings -= 112500;
-            }
+                earningsExSavings = earningsExSavings - PA;
+                console.log(earningsExSavings, earningsExSavings <= PA);
+                if (earningsExSavings <= 37500  && earningsExSavings > 0 ) {
+                    var allowance = earningsExSavings,
+                        tax = earningsExSavings * 0.2;
+                    earningsExSavings = 0;
+                } else if(earningsExSavings > 0) {
+                    var allowance = 37500,
+                        tax = 37500 * 0.2;
+                    earningsExSavings -= 37500;
+                }
+                $('#basicIncomeAllowance').html(format(allowance)).attr('data-value',allowance);
+                $('#basicIncomeTax').html(format(tax)).attr('data-value',tax);
+                
+                if (earningsExSavings <= 112500 && earningsExSavings > 0) {
+                    var allowance = earningsExSavings,
+                        tax = earningsExSavings * 0.4;
+                    earningsExSavings = 0;
+                } else if(earningsExSavings > 0) {
+                    var allowance = 112500,
+                        tax = 112500 * 0.4;
+                    earningsExSavings -= 112500;
+                }
 
-            $('#higherIncomeAllowance').html(format(allowance)).attr('data-value',allowance);
-            $('#higherIncomeTax').html(format(tax)).attr('data-value',tax);
-
+                $('#higherIncomeAllowance').html(format(allowance)).attr('data-value',allowance);
+                $('#higherIncomeTax').html(format(tax)).attr('data-value',tax);
+            }
             
                 
             /**
@@ -295,7 +298,7 @@ function format(number)
              * 
              * */
             var taxableDividends = parseFloat($('#DividendTaxable').attr('data-value'));
-            console.log('Dividends needing tax',taxableDividends)
+           
              if (taxableDividends <= 0) {
                 $('#freeDividendAllowance').html(format(0)).attr('data-value',0);
                 $('#freeDividendTax').html(format(0)).attr('data-value',0);
@@ -314,14 +317,14 @@ function format(number)
             $('#freeDividendTax').html(format(tax)).attr('data-value',tax);
 
             
-            if (taxableDividends <= 7500) {
+            if (taxableDividends <= 35500) {
                 var allowance = taxableDividends,
                     tax = taxableDividends * 0.075;
                     taxableDividends = 0;
             } else {
-                var allowance = 7500,
-                    tax = 7500 * 0.075;
-                    taxableDividends -= 7500;
+                var allowance = 35500,
+                    tax = 35500 * 0.075;
+                    taxableDividends -= 35500;
             }
             $('#basicDividendAllowance').html(format(allowance)).attr('data-value',allowance);
             $('#basicDividendTax').html(format(tax)).attr('data-value',tax);
@@ -340,7 +343,13 @@ function format(number)
             $('#higherDividendAllowance').html(format(allowance)).attr('data-value',allowance);
             $('#higherDividendTax').html(format(tax)).attr('data-value',tax);
 
-            
+            var totalTax = parseFloat($('#basicIncomeTax').attr('data-value') || 0) +
+                            parseFloat($('#higherIncomeTax').attr('data-value') || 0) +
+                            parseFloat($('#basicDividendTax').attr('data-value') || 0) +
+                            parseFloat($('#higherDividendTax').attr('data-value') || 0);
+            $('#TotalTaxPayable').html(format(totalTax)).attr('data-value',totalTax);
+            $('#taxInput').val(totalTax.toFixed(2));
+
                     
         });
 

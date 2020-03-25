@@ -47,7 +47,8 @@ class SelfAssessment extends Model
         'savings',
         'other',
         'july_payment',
-        'active'
+        'active',
+        'tax'
     ];
 
     /**
@@ -66,6 +67,7 @@ class SelfAssessment extends Model
         'savings' => 'float',
         'other' => 'float',
         'july_payment' => 'float',
+        'tax' => 'float',
         'active' => 'boolean'
     ];
 

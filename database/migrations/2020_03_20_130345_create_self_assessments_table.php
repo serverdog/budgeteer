@@ -22,14 +22,14 @@ class CreateSelfAssessmentsTable extends Migration
             $table->string('year');
             $table->string('name');
 
-            $table->decimal('total_dividends')->default(0);
-            $table->decimal('dividend_amount')->default(0);
-            $table->decimal('share')->default(100);
-            $table->decimal('salary')->default(0);
-            $table->decimal('savings')->default(0);
-            $table->decimal('other')->default(0);
-            $table->decimal('july_payment')->default(0);
-            $table->decimal('tax')->default(0);
+            $table->decimal('total_dividends')->nullable()->default(0);
+            $table->decimal('dividend_amount')->nullable()->default(0);
+            $table->decimal('share')->nullable()->default(100);
+            $table->decimal('salary')->nullable()->default(0);
+            $table->decimal('savings')->nullable()->default(0);
+            $table->decimal('other')->nullable()->default(0);
+            $table->decimal('july_payment')->nullable()->default(0);
+            $table->decimal('tax')->nullable()->default(0);
             $table->boolean('active')->default(true);
 
             $table->timestamps();
