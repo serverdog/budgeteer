@@ -13,43 +13,39 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-
-Route::resource('balances', 'BalanceController');
-
-Route::resource('accounttypes', 'AccounttypeController');
-
-Route::resource('accounts', 'AccountController');
-
-Route::resource('currencies', 'CurrencyController');
-
-Route::resource('liabilities', 'LiabilityController');
-Route::resource('loans', 'LiabilityController');
-
-Route::resource('periods', 'PeriodController');Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('users', 'UserController');
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'UserController@edit']);
-	
+    Route::get('/home', 'HomeController@index')->name('dashboard');
+    Route::resource('balances', 'BalanceController');
+
+    Route::resource('accounttypes', 'AccounttypeController');
+
+    Route::resource('accounts', 'AccountController');
+
+    Route::resource('currencies', 'CurrencyController');
+
+    Route::resource('liabilities', 'LiabilityController');
+    Route::resource('loans', 'LiabilityController');
+
+    Route::resource('periods', 'PeriodController');
+
+
+    Route::resource('users', 'UserController');
+
+    Route::resource('user', 'UserController', ['except' => ['show']]);
+    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'UserController@edit']);
+
+    Route::resource('categories', 'CategoryController');
+
+    Route::resource('bills', 'BillController');
+
+    Route::resource('billItems', 'BillItemController');
+
+    Route::resource('incomes', 'IncomeController');
+
+    Route::resource('selfAssessments', 'SelfAssessmentController');
 });
-
-
-
-Route::resource('categories', 'CategoryController');
-
-Route::resource('bills', 'BillController');
-
-Route::resource('billItems', 'BillItemController');
-
-Route::resource('incomes', 'IncomeController');
-
-Route::resource('selfAssessments', 'SelfAssessmentController');

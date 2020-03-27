@@ -6,14 +6,20 @@
 @endpush
 
 @section('content')
-    @include('home.partials.cards')
+    @if($setup->values()->filter()->count())
+        @include('home.partials.setup')
+    @else
+        @include('home.partials.cards')
+    @endif
+
 
     <div class="row">
 
         @include('home.partials.fund_overview_table')
         @include('home.partials.funds_by_category_chart')
-
-        @include('home.partials.history_chart')
+        @if ($history->count())
+            @include('home.partials.history_chart')
+        @endif
 
         @include('home.partials.detail_table')
     </div>

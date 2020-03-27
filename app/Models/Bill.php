@@ -40,7 +40,8 @@ class Bill extends Model
         'yearly',
         'weekday',
         'dayofmonth',
-        'date'
+        'date',
+        'period'
     ];
 
     /**
@@ -49,15 +50,16 @@ class Bill extends Model
      * @var array
      */
     protected $casts = [
-        'id' => 'integer',
-        'user_id' => 'integer',
-        'name' => 'string',
-        'weekly' => 'float',
-        'monthly' => 'float',
-        'yearly' => 'float',
-        'weekday' => 'integer',
+        'id'         => 'integer',
+        'user_id'    => 'integer',
+        'name'       => 'string',
+        'period'     => 'string',
+        'weekly'     => 'float',
+        'monthly'    => 'float',
+        'yearly'     => 'float',
+        'weekday'    => 'integer',
         'dayofmonth' => 'integer',
-        'date' => 'date',
+        'date'       => 'date',
 
     ];
 

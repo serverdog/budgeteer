@@ -30,15 +30,21 @@
 
             <!-- Page Wrapper -->
             <div id="wrapper">
-          
-                @include('layouts.navbars.sidebar')
+                @auth
+                    @include('layouts.navbars.sidebar')
+                @endauth
           
               <!-- Content Wrapper -->
               <div id="content-wrapper" class="d-flex flex-column">
           
                 <!-- Main Content -->
                 <div id="content">
-                    @include('layouts.navbars.navbar')
+                    @auth
+                        @include('layouts.navbars.navbar')
+                    @endauth
+                    @guest
+                        @include('layouts.navbars.guest_navbar')
+                    @endguest
                   
                   <!-- Begin Page Content -->
                   <div class="container-fluid">
@@ -62,7 +68,8 @@
               <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                   <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; {{ config('app.name', 'Budgeteer') }} <?php date('Y'); ?> </span>
+                    <span>Copyright &copy; {{ config('app.name', 'Budgeteer') }} <?php echo date('Y'); ?> </span>
+                    
                   </div>
                 </div>
               </footer>

@@ -75,7 +75,7 @@ class BalanceController extends AppBaseController
 
         Flash::success('Balance saved successfully.');
 
-        return redirect(route('home'));
+        return redirect(route('dashboard'));
     }
 
     /**

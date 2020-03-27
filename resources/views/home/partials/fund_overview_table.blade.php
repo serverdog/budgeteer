@@ -18,7 +18,10 @@
 
         $regularIncome = $income->count() ? $income->pluck('amount')->sum() : 0;
         $monthlyOutgoings = $totalBillsPerMonth + $user->incidentals - $regularIncome;
-        $daysFinanced = ($totalBillsPerMonth + $user->incidentals) > 0 ? round($availableCash / $monthlyOutgoings * 30) : 0;
+        $daysFinanced = $monthlyOutgoings > 0 ? round($availableCash / $monthlyOutgoings * 30) : 0;
+        if ($daysFinanced < 1) {
+            $daysFinanced = 0;
+        }
         @endphp
 
         <div class="table-responsive">
@@ -95,10 +98,22 @@
                         </td>
                     </tr>
                     <tr class='bg-gradient-primary text-gray-100'>
-                        <td>Sustainability<sup>*</sup> ({{ $daysFinanced }} days)</td>
+                        @if ($daysFinanced > 0)
+                            <td>Sustainability<sup>*</sup> ({{ $daysFinanced }} days)</td>
 
-                    <td class='text-right'>{{ \Carbon\Carbon::now()->addDays($daysFinanced)->toFormattedDateString()}}</td>
-                    </tr>
+                            <td class='text-right'>{{ \Carbon\Carbon::now()->addDays($daysFinanced)->toFormattedDateString()}}</td>
+                        @else
+                            <td>Sustainability</td>
+
+                            <td class='text-right'>
+                                <span class="icon">
+                                    <i class="fas fa-check-circle"></i> You currently earn more than you spend
+                                </span>
+                            </td>
+                    
+                        @endif
+
+                        </tr>
                 </tbody>
 
             </table>

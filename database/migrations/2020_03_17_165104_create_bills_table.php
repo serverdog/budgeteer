@@ -19,6 +19,7 @@ class CreateBillsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             
             $table->string('name');
+            $table->string('period');
             $table->decimal('weekly')->nullable();
             $table->decimal('monthly')->nullable();
             $table->decimal('yearly')->nullable();

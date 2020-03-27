@@ -30,15 +30,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-/*        $password = 'password';
-        $secret = "Mortgage details";
-        $key= pbkdf2($password, Config::get('app.key'));
-        Crypt::setKey($key);
-        $encypted = Crypt::encrypt($input);
-        $decypted = Crypt::decrypt($encypted);
-        dd($key, $encrypted, $decrypted);
-*/
         $accounts = Account::count();
         $funds    = Summary::get();
         $details  = Balance::with(['Account','Account.Accounttype.Category'])->where('latest', 1)->get();
@@ -47,6 +38,13 @@ class HomeController extends Controller
         $user = Auth::user()->fresh();
         $income = Income::get();
 
-        return view('home.dashboard')->with(compact('accounts', 'funds', 'details', 'bills', 'history', 'user', 'income'));
+        $setup = collect([
+            'accounts' => $accounts == 0 ? true : false,
+            'bills' => $bills->count() < 1 ? true : false,
+            'income' => $income->count() < 1 ? true : false,
+            'balances' => $details->count() < 1 ? true : false,
+        ]);
+
+        return view('home.dashboard')->with(compact('accounts', 'funds', 'details', 'bills', 'history', 'user', 'income', 'setup'));
     }
 }

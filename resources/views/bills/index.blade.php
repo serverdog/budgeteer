@@ -8,9 +8,9 @@
 @section('content')
 
 
-    @if($bills->count())
+    {{-- @if($bills->count())
         @include('bills.partials.bills_graph')
-    @endif
+    @endif --}}
 
     @component("card", ["size" => "12 border-dark no-padding card-full" , "title_bg" => "bg-gradient-primary text-gray-100","title" => "Bills"])
 

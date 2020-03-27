@@ -8,6 +8,7 @@ use App\Models\Account;
 use App\Models\Currency;
 use App\Models\Accounttype;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Requests\CreateAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
@@ -52,61 +53,18 @@ class AccountController extends AppBaseController
     public function store(CreateAccountRequest $request)
     {
         $input = $request->all();
+        $input['user_id'] = Auth::id();
 
+        
         /** @var Account $account */
         $account = Account::create($input);
 
-        if (in_array($input['accounttype_id'], Accounttype::$debtAccountTypes)) {
-            $input['account_id'] = $account->id;
-            dd($input);
-        }
-
+      
         Flash::success('Account saved successfully.');
 
         return redirect(route('accounts.index'));
     }
 
-    /**
-     * Display the specified Account.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function show($id)
-    {
-        /** @var Account $account */
-        $account = Account::find($id);
-
-        if (empty($account)) {
-            Flash::error('Account not found');
-
-            return redirect(route('accounts.index'));
-        }
-
-        return view('accounts.show')->with('account', $account);
-    }
-
-    /**
-     * Show the form for editing the specified Account.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function edit($id)
-    {
-        /** @var Account $account */
-        $account = Account::find($id);
-
-        if (empty($account)) {
-            Flash::error('Account not found');
-
-            return redirect(route('accounts.index'));
-        }
-
-        return view('accounts.edit')->with('account', $account);
-    }
 
     /**
      * Update the specified Account in storage.

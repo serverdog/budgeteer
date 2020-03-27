@@ -13,7 +13,7 @@
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
             </div>
-                        <form role="form" method="POST" action="{{ route('register') }}">
+                        <form role="form" method="POST" action="{{ route('register') }}" id="registrationForm">
                             @csrf
 
                             <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
@@ -47,7 +47,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" type="password" name="password" required>
+                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" type="password" name="password" required id="password">
                                 </div>
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -60,15 +60,32 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation" required>
+                                    <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation" required id="password_confirmation">
                                 </div>
                             </div>
+
+                        
+                                    <input class="form-control"  type="hidden" name="indicendals" value="500">
+                                
+
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                    </div>
+                                    {!! Form::select('currency_id', \App\Models\Currency::pluck('name', 'code'),  null, ['class' => 'form-control','placeholder']) !!}
+                                </div>
+                            </div>
+
+
+
+
                             <div class="row my-4">
                                 <div class="col-12">
                                     <div class="custom-control custom-control-alternative custom-checkbox">
                                         <input class="custom-control-input" id="customCheckRegister" type="checkbox">
                                         <label class="custom-control-label" for="customCheckRegister">
-                                            <span class="text-muted">{{ __('I agree with the') }} <a href="#!">{{ __('Privacy Policy') }}</a></span>
+                                            <span class="text-muted">{{ __('I agree with the') }} <a href="/privacy_policy.html">{{ __('Privacy Policy') }}</a></span>
                                         </label>
                                     </div>
                                 </div>
@@ -79,7 +96,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                          <a class="small" href="/forgot-password">Forgot Password?</a>
+                          <a class="small" href="/password/reset">Forgot Password?</a>
                         </div>
                         <div class="text-center">
                           <a class="small" href="/login">Already have an account? Login!</a>
@@ -91,3 +108,47 @@
               </div>
            
 @endsection
+
+@push('js')
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
+
+<script type="text/javascript">
+(function($) {
+
+  "use strict"; // Start of use strict
+  $( "#registrationForm" ).validate({
+   
+        rules: {
+            password: {
+                required: true,
+                checkpass: true,
+                minlength: 8
+            },
+            password_confirmation: {
+                required: true,
+                minlength: 8,
+                equalTo: "input#password"
+            }
+        },
+        messages: {
+            password_confirmation: {
+                equalTo: 'Your passwords do not match. Please try again.'
+            },
+            password: {
+                checkpass: 'Passwords are minimum 8 characters with uppercase letters, lowercase letters and at least one number.'
+            }
+        }
+    });
+
+    $.validator.addMethod("checkpass", function(value) {
+        return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value)
+            && /[a-z]/.test(value)
+            && /\d/.test(value)
+            && /[A-Z]/.test(value)
+    });
+})(jQuery); // End of use strict
+
+</script>
+@endpush
+

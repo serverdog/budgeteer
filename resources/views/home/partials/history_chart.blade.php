@@ -15,27 +15,27 @@
 </div>
 
 @isset($history)
-@php
-    $historyByDate = $history->groupBy(function ($item) {
-        return $item->date->format('Y-m-d'); 
-    });
-    $historyByType = $history->groupBy('name')->forget(['Short Term Liabilities', 'Long Term Liabilities']);
-   
-    $colours = collect(['green','blue','purple','yellow','red']);
+    @php
+        $historyByDate = $history->groupBy(function ($item) {
+            return $item->date->format('Y-m-d'); 
+        });
+        $historyByType = $history->groupBy('name')->forget(['Short Term Liabilities', 'Long Term Liabilities']);
+    
+        $colours = collect(['green','blue','purple','yellow','red']);
 
-    $datasets = [];
-    foreach ($historyByType as $type => $data) {
-        $colour = $colours->shift();
-        $dataset[] = "{
-					label: '{$type}',
-					borderColor: window.chartColors.$colour,
-					backgroundColor: window.chartColors.$colour,
-					data: [".$data->pluck('total')->join(',')."],
-				}";
-    }
-@endphp
+        $datasets = [];
+        foreach ($historyByType as $type => $data) {
+            $colour = $colours->shift();
+            $dataset[] = "{
+                        label: '{$type}',
+                        borderColor: window.chartColors.$colour,
+                        backgroundColor: window.chartColors.$colour,
+                        data: [".$data->pluck('total')->join(',')."],
+                    }";
+        }
+    @endphp
 
-
+@endisset
 
 @push('js')
 <script type="text/javascript">
@@ -90,7 +90,7 @@ var MONTHS = ["{!! $historyByDate->keys()->join('","') !!}"];
 				responsive: true,
 				title: {
 					display: true,
-					text: 'Chart.js Line Chart - Stacked Area'
+					text: 'Funds over time'
 				},
 				tooltips: {
 					mode: 'index',
@@ -124,4 +124,3 @@ var MONTHS = ["{!! $historyByDate->keys()->join('","') !!}"];
 </script>
 
 @endpush
-@endisset
