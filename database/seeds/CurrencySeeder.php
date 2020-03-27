@@ -15,18 +15,28 @@ class CurrencySeeder extends Seeder
             [
                 'name' => 'Pounds',
                 'code' => '£',
+                'iso'   => 'GBP',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'name' => 'US Dollars',
                 'code' => '$',
+                'iso'   => 'USD',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'Aus Dollars',
+                'code' => '$',
+                'iso'   => 'AUD',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'name' => 'Euros',
                 'code' => '€',
+                'iso'   => 'EUR',
                 'created_at' => now(),
                 'updated_at' => now()
             ]
