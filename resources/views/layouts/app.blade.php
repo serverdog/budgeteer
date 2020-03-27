@@ -114,6 +114,21 @@
         
           <!-- Custom scripts for all pages-->
           <script src="/theme/js/sb-admin-2.js"></script>
+
+          @auth
+          
+          <script type="text/javascript">
+            function format(value)
+            {
+                return value.toLocaleString("en-US",{
+                                        style:"currency", 
+                                        currency:"{{ Auth::user()->currency()->first()->iso }}", 
+                                        minimumFractionDigits: 0,
+                                        maximumFractionDigits: 0
+                                        });
+            } 
+          </script>   
+          @endauth
           @stack('js')
           
         

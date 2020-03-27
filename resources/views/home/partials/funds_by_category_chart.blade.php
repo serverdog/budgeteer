@@ -23,13 +23,13 @@
         </div>
         <div class="mt-4 text-center small">
           <span class="mr-2">
-            <i class="fas fa-circle text-primary"></i> {{ $funds->where('id',1)->pluck('name')->first() }}
+            <i class="fas fa-circle text-primary"></i> Instant funds
           </span>
           <span class="mr-2">
-            <i class="fas fa-circle text-success"></i> {{ $funds->where('id',2)->pluck('name')->first() }}
+            <i class="fas fa-circle text-success"></i> Short term savings
           </span>
           <span class="mr-2">
-            <i class="fas fa-circle text-info"></i> {{ $funds->where('id',3)->pluck('name')->first() }}
+            <i class="fas fa-circle text-info"></i> Long term savings
           </span>
         </div>
       </div>
@@ -67,6 +67,13 @@
         yPadding: 15,
         displayColors: false,
         caretPadding: 10,
+        callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.labels[tooltipItem.index],
+                            value = data.datasets[0].data[tooltipItem.index];
+                        return label+ " : " + format(value);
+                    }
+                }
       },
       legend: {
         display: false

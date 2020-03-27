@@ -38,4 +38,13 @@ class User extends Authenticatable
         'incidentals'       => 'float',
         'currency_id'       => 'integer'
     ];
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function currency()
+    {
+        return $this->belongsTo(\App\Models\Currency::class, 'currency_id');
+    }    
 }

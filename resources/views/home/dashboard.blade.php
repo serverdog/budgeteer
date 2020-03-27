@@ -17,7 +17,7 @@
 
         @include('home.partials.fund_overview_table')
         @include('home.partials.funds_by_category_chart')
-        @if ($history->count())
+        @if ($history->count() > 1)
             @include('home.partials.history_chart')
         @endif
 
