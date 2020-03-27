@@ -13,7 +13,7 @@
             <!-- Total Dividends Field -->
             <div class="form-group col-sm-3">
                 {!! Form::label('total_dividends', 'Total Dividends:') !!}
-                {!! Form::number('total_dividends', 43900, ['class' => 'form-control','id'=>'totalDividends']) !!}
+                {!! Form::number('total_dividends', null, ['class' => 'form-control','id'=>'totalDividends']) !!}
             </div>
             <div class="form-group col-sm-6">
                 If dividends are shared from one company, enter the total amount of dividends issued here, and then allocate the share below. 
@@ -40,8 +40,8 @@
                 <td>
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </td>
-                <td>{!! Form::number('salary', 8630.96, ['class' => 'form-control salary','step'=>'any']) !!}</td>
-                <td>{!! Form::number('savings', 100, ['class' => 'form-control savings','step'=>'any']) !!}</td>
+                <td>{!! Form::number('salary', null, ['class' => 'form-control salary','step'=>'any']) !!}</td>
+                <td>{!! Form::number('savings', null, ['class' => 'form-control savings','step'=>'any']) !!}</td>
                 <td>{!! Form::number('other', null, ['class' => 'form-control other','step'=>'any']) !!}</td>
                 <td>{!! Form::number('july_payment', null, ['class' => 'form-control payment','step'=>'any']) !!}</td>
                 <td>{!! Form::number('share', null, ['class' => 'form-control share','step'=>'any']) !!}</td>
