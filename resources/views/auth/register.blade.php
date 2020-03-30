@@ -63,7 +63,7 @@
                                     <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation" required id="password_confirmation">
                                 </div>
                             </div>
-
+<hr/>
                 
                             <input class="form-control"  type="hidden" name="indicendals" value="500">
                             <div class="form-group">
@@ -82,7 +82,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    {!! Form::select('currency_id', \App\Models\Currency::pluck('name', 'id'),  null, ['class' => 'form-control']) !!}
+                                    {!! Form::select('currency_id', collect(currency()->getActiveCurrencies())->pluck('name', 'id')->sort(),  1, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
 
