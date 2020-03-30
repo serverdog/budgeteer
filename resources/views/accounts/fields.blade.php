@@ -18,7 +18,7 @@
 <!-- Currency Id Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('currency_id', 'Currency:') !!}
-    {!! Form::select('currency_id', $currencies, null, ['class' => 'form-control']) !!}
+    {!! Form::select('currency_id', $currencies, Auth::user()->currency_id, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Interest Rate Field -->

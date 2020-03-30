@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Webpatser\Countries\Countries;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -56,7 +57,8 @@ class UserController extends Controller
     {
         $user = Auth::user()->fresh();
         $currencies = Currency::pluck('name', 'id');
-        return view('users.edit', compact('user', 'currencies'));
+        $countries = Countries::orderBy('name')->pluck('name', 'id');
+        return view('users.edit', compact('user', 'currencies', 'countries'));
     }
 
     /**

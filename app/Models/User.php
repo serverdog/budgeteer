@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'incidentals', 'currency_id'
+        'name', 'email', 'password', 'incidentals', 'currency_id', 'country_id'
     ];
 
     /**
@@ -36,7 +36,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'incidentals'       => 'float',
-        'currency_id'       => 'integer'
+        'currency_id'       => 'integer',
+        'country_id'        => 'integer',
     ];
 
 
@@ -46,5 +47,13 @@ class User extends Authenticatable
     public function currency()
     {
         return $this->belongsTo(\App\Models\Currency::class, 'currency_id');
-    }    
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function country()
+    {
+        return $this->belongsTo(Webpatser\Countries\Countries::class);
+    }
 }

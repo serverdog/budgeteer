@@ -64,7 +64,11 @@
             {!! Form::label('currency', 'Currency:') !!}
             {!! Form::select('currency_id', $currencies,  null, ['class' => 'form-control']) !!}
         </div>
-                
+        <div class="form-group col-sm-12">        
+            {!! Form::label('country', 'Country:') !!}
+            {!! Form::select('country_id', $countries,  null, ['class' => 'form-control']) !!}
+        </div>
+                                
         <div class="text-center">
             <button type="submit" class="btn btn-success mt-4">{{ __('Update Settings') }}</button>
         </div>

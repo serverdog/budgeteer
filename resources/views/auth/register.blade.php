@@ -64,16 +64,25 @@
                                 </div>
                             </div>
 
-                        
-                                    <input class="form-control"  type="hidden" name="indicendals" value="500">
-                                
+                
+                            <input class="form-control"  type="hidden" name="indicendals" value="500">
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                    </div>
+                                    {!! Form::select('country_id', Countries::orderBy('name')->pluck('name', 'id'),  826, ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+
+                                        
 
                             <div class="form-group">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    {!! Form::select('currency_id', \App\Models\Currency::pluck('name', 'code'),  null, ['class' => 'form-control','placeholder']) !!}
+                                    {!! Form::select('currency_id', \App\Models\Currency::pluck('name', 'id'),  null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
 
