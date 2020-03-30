@@ -37,14 +37,14 @@
                     <tr class='bg-gradient-{{ $category == 'Short Term Liabilities' ? "danger" : "success" }} text-gray-100'>
                         <td>{{ $category }}</td>
 
-                        <td class='text-right'>&pound;{{format($data->pluck('amount')->sum())}}</td>
+                        <td class='text-right'>{{currency_format($data->pluck('amount')->sum(), currency()->getUserCurrency()) }}</td>
                     </tr>
 
                     @endforeach
                     <tr class='bg-gradient-primary text-gray-100 text-lg'>
                         <td>Cash Available</td>
 
-                        <td class='text-right'>&pound;{{format($availableCash )}}</td>
+                        <td class='text-right'>{{currency_format($availableCash, currency()->getUserCurrency()) }}</td>
                     </tr>
                     <tr class='bg-gray-100'>
                         <td>
@@ -62,7 +62,7 @@
                                 <i class="fas fa-pen"></i>
                                 </span>
                             </a>
-                            &pound;{{format($user->incidentals )}}
+                            {{ currency_format($user->incidentals, currency()->getUserCurrency()) }}
                         </td>
                     </tr>   
                     <tr class='bg-gradient-success text-gray-100'>
@@ -70,7 +70,7 @@
 
                         <td class='text-right'>
                             @if ($income->count() > 0)
-                                &pound;{{format($income->pluck('amount')->sum())}}
+                                {{ currency_format($income->pluck('amount')->sum(), currency()->getUserCurrency()) }}
                             @else 
                             <a href="{!! route('incomes.index') !!}" class="btn btn-danger btn-icon-split btn-sm">
                                 <span class="icon text-white-50">
@@ -86,7 +86,7 @@
 
                         <td class='text-right'>
                             @if ($totalBillsPerMonth > 0)
-                                &pound;{{format($totalBillsPerMonth)}}
+                                {{ currency_format($totalBillsPerMonth, currency()->getUserCurrency()) }}
                             @else 
                             <a href="{!! route('bills.index') !!}" class="btn btn-danger btn-icon-split btn-sm">
                                 <span class="icon text-white-50">

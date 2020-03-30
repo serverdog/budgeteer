@@ -23,7 +23,7 @@ class BillController extends AppBaseController
      */
     public function index(Request $request)
     {
-        /** @var Bill $bills */
+        currency()->setUserCurrency(Auth::user()->currency);
         $bills = Bill::all();
         $graphData = Bill::where('user_id', Auth::id())
                 ->select('dayofmonth', \DB::raw('sum(monthly) as total'))

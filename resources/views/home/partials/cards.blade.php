@@ -17,7 +17,7 @@
                 </span>
             </div>
             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                &pound;{{ number_format($finances->get('Instant Funds',0),0,'.',',') }}
+                {{ currency_format($finances->get('Instant Funds',0), currency()->getUserCurrency()) }}
             </div>
           </div>
           <div class="col-auto">
@@ -42,7 +42,7 @@
 
             </div>
             <div class="h5 mb-0 font-weight-bold text-gray-800">
-              &pound;{{ number_format($finances->get('Long Term Savings',0) + $finances->get('Stashed Cash',0),0,'.',',') }}</div>
+              {{ currency_format($finances->get('Long Term Savings',0) + $finances->get('Stashed Cash',0), currency()->getUserCurrency()) }}</div>
           </div>
           <div class="col-auto">
             <i class="fas fa-piggy-bank fa-2x text-gray-300"></i>
@@ -65,7 +65,7 @@
                     <i class="fas fa-info-circle"></i>
                 </span>
             </div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">&pound;{{ number_format($finances->get('Short Term Liabilities',0),0,'.',',') }}
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ currency_format($finances->get('Short Term Liabilities',0), currency()->getUserCurrency()) }}
             </div>
           </div>
           <div class="col-auto">
@@ -89,7 +89,7 @@
                 </span>
 
                 </div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">&pound;{{ number_format($finances->get('Long Term Liabilities',0),0,'.',',') }}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ currency_format($finances->get('Long Term Liabilities',0), currency()->getUserCurrency()) }}</div>
             </div>
             <div class="col-auto">
               <i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>

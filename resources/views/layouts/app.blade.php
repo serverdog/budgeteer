@@ -123,7 +123,7 @@
             {
                 return value.toLocaleString("en-US",{
                                         style:"currency", 
-                                        currency:"{{ optional(Auth::user()->currency()->first())->symbol  ?? '£'}}", 
+                                        currency:"{{ Auth::user()->currency}}", 
                                         minimumFractionDigits: 0,
                                         maximumFractionDigits: 0
                                         });

@@ -11,11 +11,12 @@
         </thead>
         <tbody>
         @foreach($bills as $bill)
+       
             <tr>
                 <td>{{ $bill->name }}</td>
-                <td>{{ $bill->weekly }}</td>
-                <td>{{ $bill->monthly }}</td>
-                <td>{{ $bill->yearly }}</td>
+                <td>{{ !empty($bill->weekly) ? currency_format($bill->weekly, currency()->getUserCurrency()) : "" }}</td>
+                <td>{{ !empty($bill->monthly) ? currency_format($bill->monthly, currency()->getUserCurrency()) : "" }}</td>
+                <td>{{ !empty($bill->yearly) ? currency_format($bill->yearly, currency()->getUserCurrency()) : "" }}</td>
                 <td>
                     {!! Form::open(['route' => ['bills.destroy', $bill->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

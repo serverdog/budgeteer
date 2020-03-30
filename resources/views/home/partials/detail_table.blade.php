@@ -23,13 +23,13 @@
                     <tr class='bg-gradient-{{ stristr($category, "Liabilities") ? "danger" : "success" }} text-gray-100'>
                         <td>{{ $category }}</td>
                         <td>&nbsp;</td>
-                        <td class='text-right'>&pound;{{format($data->pluck('amount')->sum())}}</td>
+                        <td class='text-right'>{{currency_format($data->pluck('amount')->sum(), currency()->getUserCurrency()) }}</td>
                     </tr>
                     @foreach ($data as $account)
                     <tr>
                         <td>&nbsp;</td>
                         <td>{{ $account->Account->name}}</td>
-                        <td class='text-right'>&pound;{{ format($account->amount) }}</td>
+                        <td class='text-right'>{{ currency_format($account->amount, currency()->getUserCurrency()) }}</td>
 
                     </tr>
                     @endforeach
