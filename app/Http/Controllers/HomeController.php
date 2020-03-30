@@ -47,4 +47,9 @@ class HomeController extends Controller
         $articles = Article::limit(5)->get();
         return view('home.welcome')->with(compact('articles'));
     }
+
+    public function faq()
+    {
+        return view('home.faq');
+    }
 }

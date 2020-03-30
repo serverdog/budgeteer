@@ -11,6 +11,13 @@
             </a>
         </li>
 
+        <li class="nav-item ml-3">
+            <a class="nav-link nav-link-icon  btn btn-sm btn-primary" href="{{ route('faq') }}">
+                <i class="ni ni-planet"></i>
+                <span class="nav-link-inner--text">{{ __('FAQ') }}</span>
+            </a>
+        </li>
+
 
 
         <div class="topbar-divider d-none d-sm-block"></div>

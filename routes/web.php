@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@home')->name('home');
 
+Route::get('/faq', 'HomeController@faq')->name('faq');
+
 Auth::routes();
 
 
