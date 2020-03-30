@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', 'HomeController@home')->name('home');
 
 Auth::routes();
 
@@ -49,3 +47,5 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('selfAssessments', 'SelfAssessmentController');
 });
+
+Route::resource('articles', 'ArticleController');

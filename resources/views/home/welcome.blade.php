@@ -12,6 +12,9 @@
         </div>
     </div>
   
+    <div class="row">
+        @include('home.partials.news_carousel')
+    </div>
 
     <div class="row">
         <div class="col-12">

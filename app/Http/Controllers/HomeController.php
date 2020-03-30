@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bill;
 use App\Models\Income;
 use App\Models\Account;
+use App\Models\Article;
 use App\Models\Balance;
 use App\Models\Summary;
 use App\Models\HistorySummary;
@@ -13,15 +14,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     /**
      * Show the application dashboard.
@@ -46,5 +39,11 @@ class HomeController extends Controller
         ]);
 
         return view('home.dashboard')->with(compact('accounts', 'funds', 'details', 'bills', 'history', 'user', 'income', 'setup'));
+    }
+
+    public function home()
+    {
+        $articles = Article::limit(5)->get();
+        return view('home.welcome')->with(compact('articles'));
     }
 }
