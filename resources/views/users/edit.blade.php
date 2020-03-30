@@ -62,7 +62,7 @@
         </div>
         <div class="form-group col-sm-12">        
             {!! Form::label('currency', 'Currency:') !!}
-            {!! Form::select('currency_id', $currencies,  null, ['class' => 'form-control']) !!}
+            {!! Form::select('currency', $currencies,  null, ['class' => 'form-control']) !!}
         </div>
         <div class="form-group col-sm-12">        
             {!! Form::label('country', 'Country:') !!}

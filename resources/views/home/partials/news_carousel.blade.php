@@ -71,7 +71,7 @@
 }
 .mt{float: left;margin-top: -20px;padding-top: 20px;}
 .bg-blue-ui {
-  background-color: #708198 !important;
+  background-color: #4e73df !important;
 }
 figure {
     min-height:170px;
@@ -130,7 +130,7 @@ figure img{width:300px;}
   padding: 4px 20px;
   top: -20px;
   right: 8px;
-  background-color: #41cb52;
+  background-color: #4e73df;
 }
 
 .item-box-blog-date span {

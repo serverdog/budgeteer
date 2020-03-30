@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCountriesToUserTable extends Migration
+class ChangeCurrencyForUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,12 @@ class AddCountriesToUserTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('country_id')->default(826)->after('currency_id');
-            $table->foreign('country_id')->references('id')->on('countries');
-
+            $table->dropForeign(['currency_id']);
+            $table->dropColumn('currency_id');
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('currency')->after('incidentals')->default('GBP');
+            $table->foreign('currency')->references('code')->on('currencies');
         });
     }
 
@@ -28,9 +31,6 @@ class AddCountriesToUserTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::table('user', function (Blueprint $table) {
-            $table->dropColumn('country_id');
-        });
+        //
     }
 }

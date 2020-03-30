@@ -56,7 +56,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $user = Auth::user()->fresh();
-        $currencies = Currency::pluck('name', 'id');
+        $currencies = Currency::pluck('name', 'code');
         $countries = Countries::orderBy('name')->pluck('name', 'id');
         return view('users.edit', compact('user', 'currencies', 'countries'));
     }
@@ -81,7 +81,8 @@ class UserController extends Controller
                 $request->merge(['user_id' => Auth::id()])->except('password')
             );
         }
-
+        Auth::user()->fresh();
+        currency()->setUserCurrency(Auth::user()->currency);
         return redirect()->route('dashboard')->withStatus(__('User successfully updated.'));
     }
 

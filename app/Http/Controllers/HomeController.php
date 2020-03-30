@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        currency()->setUserCurrency(Auth::user()->currency);
         $accounts = Account::count();
         $funds    = Summary::get();
         $details  = Balance::with(['Account','Account.Accounttype.Category'])->where('latest', 1)->get();

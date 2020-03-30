@@ -116,13 +116,14 @@
           <script src="/theme/js/sb-admin-2.js"></script>
 
           @auth
+
           
           <script type="text/javascript">
             function format(value)
             {
                 return value.toLocaleString("en-US",{
                                         style:"currency", 
-                                        currency:"{{ Auth::user()->currency()->first()->iso }}", 
+                                        currency:"{{ optional(Auth::user()->currency()->first())->symbol  ?? '£'}}", 
                                         minimumFractionDigits: 0,
                                         maximumFractionDigits: 0
                                         });

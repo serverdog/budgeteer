@@ -82,7 +82,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    {!! Form::select('currency_id', collect(currency()->getActiveCurrencies())->pluck('name', 'id')->sort(),  1, ['class' => 'form-control']) !!}
+                                    {!! Form::select('currency', collect(currency()->getActiveCurrencies())->pluck('name', 'code')->sort(),  1, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
 

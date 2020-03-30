@@ -7,7 +7,7 @@
             <div class="jumbotron  bg-white border">
                 <h1 class="display-1 text-primary">eBudget</h1>
                 <h4 class="display-5">Know where your budget is and where it's going.</h4>
-                <img src="/img/hero.png" class="img-fluid" alt="eBudget Hero image"/>
+                <img src="/img/hero.png" class="img-fluid" alt="eBudget Hero image" width="60%"/>
             </div>
         </div>
     </div>
