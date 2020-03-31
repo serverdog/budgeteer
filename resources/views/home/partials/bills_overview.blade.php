@@ -11,19 +11,22 @@
         $totalBills = $bills->pluck('monthlyCost')->sum();
         $luxuryBills = $luxury->pluck('monthlyCost')->sum();
         $percent = round($luxuryBills / $totalBills * 100);
-
+        $newDaysFinanced = $monthlyOutgoings > 0 ? round($availableCash / ($monthlyOutgoings - $luxuryBills) * 30) : 0;
+        $extension = $newDaysFinanced - $daysFinanced;
         @endphp
         @if ($luxuryBills > 0)
             <div class="alert alert-warning" role="alert">
+                <i class="fas fa-info-circle"></i> &nbsp;
                 Did you know you could save {{ currency_format($luxuryBills, currency()->getUserCurrency())  }}
-                <span class="font-italic">({{$percent}}%)</span> by stopping your luxury bill items?
+                <span class="font-italic">({{$percent}}%)</span> on your regular outgoings by stopping your luxury bill items? This could
+                extend you sustanability by <strong>{{ $extension }}</strong> days.
             </div>
 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Category</th>
+                            
                             <th>Name</th>
                             <th>Amount</th>
                         </tr>
@@ -31,7 +34,7 @@
                     <tbody>
                         @foreach ($luxury as $bill)
                             <tr class=''>
-                                <td>{{ $bill->name }}</td>
+                               
                                 <td>{{ $bill->name }}</td>
                                 <td class='text-right'>{{$bill->cost}}</td>
                             </tr>

@@ -4,26 +4,6 @@
     </div>
     <div class="card-body">
         @if ($details->count())
-        @php
-        $categories = collect($details->groupBy('Account.Accounttype.Category.name')->forget(['Long Term Savings', 'Long Term Liabilities']));
-       
-
-        $availableCash = 0;
-
-        $availableCash += $categories->has('Instant Funds') ? $categories->get('Instant Funds')->pluck('amount')->sum() : 0;
-        $availableCash += $categories->has('Stashed Cash') ? $categories->get('Stashed Cash')->pluck('amount')->sum() : 0;
-        $availableCash -=  $categories->has('Short Term Liabilities') ? $categories->get('Short Term Liabilities')->pluck('amount')->sum() : 0;
-
-        $totalBillsPerMonth = ($bills->pluck('monthlyCost')->sum() ?? 0) ;
-
-        $regularIncome = $income->count() ? $income->pluck('amount')->sum() : 0;
-        $monthlyOutgoings = $totalBillsPerMonth + $user->incidentals - $regularIncome;
-        $daysFinanced = $monthlyOutgoings > 0 ? round($availableCash / $monthlyOutgoings * 30) : 0;
-        if ($daysFinanced < 1) {
-            $daysFinanced = 0;
-        }
-        @endphp
-
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -117,7 +97,7 @@
                 </tbody>
 
             </table>
-            <sup>*</sup> If all your income stopped today, and your outgoings remained the same, how many days coud you support yourself. Excludes future income and unexpected costs
+       
         </div>
         @endif
     </div>

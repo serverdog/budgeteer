@@ -5,6 +5,29 @@
 <script src="/theme/vendor/chart.js/Chart.min.js"></script>
 @endpush
 
+
+@if ($details->count())
+    @php
+    $categories = collect($details->groupBy('Account.Accounttype.Category.name')->forget(['Long Term Savings', 'Long Term Liabilities']));
+
+
+    $availableCash = 0;
+
+    $availableCash += $categories->has('Instant Funds') ? $categories->get('Instant Funds')->pluck('amount')->sum() : 0;
+    $availableCash += $categories->has('Stashed Cash') ? $categories->get('Stashed Cash')->pluck('amount')->sum() : 0;
+    $availableCash -=  $categories->has('Short Term Liabilities') ? $categories->get('Short Term Liabilities')->pluck('amount')->sum() : 0;
+
+    $totalBillsPerMonth = ($bills->pluck('monthlyCost')->sum() ?? 0) ;
+
+    $regularIncome = $income->count() ? $income->pluck('amount')->sum() : 0;
+    $monthlyOutgoings = $totalBillsPerMonth + $user->incidentals - $regularIncome;
+    $daysFinanced = $monthlyOutgoings > 0 ? round($availableCash / $monthlyOutgoings * 30) : 0;
+    if ($daysFinanced < 1) {
+        $daysFinanced = 0;
+    }
+    @endphp
+@endif
+
 @section('content')
     @if($setup->values()->filter()->count())
         @include('home.partials.setup')

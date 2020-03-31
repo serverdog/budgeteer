@@ -12,12 +12,12 @@
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                 Cash Available 
-                &nbsp; <span class="btn-circle btn-sm" data-toggle="tooltip" data-placement="top" title="Funds that you can access immediately">
+                &nbsp; <span class="btn-circle btn-sm" data-toggle="tooltip" data-placement="top" title="Funds that you can access immediately less your short term liabilities">
                     <i class="fas fa-info-circle"></i>
                 </span>
             </div>
             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                {{ currency_format($finances->get('Instant Funds',0), currency()->getUserCurrency()) }}
+                {{ currency_format($availableCash, currency()->getUserCurrency()) }}
             </div>
           </div>
           <div class="col-auto">
@@ -83,16 +83,30 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                  Long Term Liabilities
-                  &nbsp; <span class="btn-circle btn-sm" data-toggle="tooltip" data-placement="top" title="Debts that are being paid off over a long period of time including mortgages & loans.">
+                Sustainability
+                  &nbsp; <span class="btn-circle btn-sm" data-toggle="tooltip" data-placement="top" title="If all your income stopped today, and your outgoings remained the same, how many days coud you support yourself. Excludes future income and unexpected costs.">
                     <i class="fas fa-info-circle"></i>
                 </span>
 
                 </div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ currency_format($finances->get('Long Term Liabilities',0), currency()->getUserCurrency()) }}</div>
+              
+                @if ($daysFinanced > 0)
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        {{ $daysFinanced }} days<br/>
+                    </div>
+
+                    <sup>{{ \Carbon\Carbon::now()->addDays($daysFinanced)->toFormattedDateString()}}</sup>
+                @else
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <i class="fas fa-check-circle"></i> You currently earn more than you spend
+                     </div
+                @endif
+
+                 
+               
             </div>
             <div class="col-auto">
-              <i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>
+              <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
