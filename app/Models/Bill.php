@@ -41,7 +41,8 @@ class Bill extends Model
         'weekday',
         'dayofmonth',
         'date',
-        'period'
+        'period',
+        'luxury'
     ];
 
     /**
@@ -60,6 +61,7 @@ class Bill extends Model
         'weekday'    => 'integer',
         'dayofmonth' => 'integer',
         'date'       => 'date',
+        'luxury'     => 'boolean'
 
     ];
 
@@ -113,9 +115,9 @@ class Bill extends Model
     public static function saveManyBills(array $rows, int $user_id)
     {
         foreach ($rows as $row) {
-            if ($row['period'] == 'Monthly'){
+            if ($row['period'] == 'Monthly') {
                 unset($row['weekly'], $row['yearly'], $row['weekday'], $row['date']);
-            } elseif ($row['period'] == 'Weekly'){
+            } elseif ($row['period'] == 'Weekly') {
                 unset($row['monthly'], $row['yearly'], $row['dayofmonth'], $row['date']);
             } else {
                 unset($row['weekly'], $row['monthly'], $row['weekday'], $row['dayofmonth']);
@@ -124,5 +126,22 @@ class Bill extends Model
             $bill = self::create($row);
             $bill->save();
         }
+    }
+
+    public function getCostAttribute()
+    {
+        if (!empty($this->monthly)) {
+            return currency_format($this->monthly, currency()->getUserCurrency()) ." / month";
+        }
+
+        if (!empty($this->yearly)) {
+            return currency_format($this->yearly, currency()->getUserCurrency()) ." / year";
+        }
+
+        if (!empty($this->weekly)) {
+            return currency_format($this->weekly, currency()->getUserCurrency()) ." / week";
+        }
+
+        return null;
     }
 }

@@ -24,57 +24,67 @@
         </div>
 */?>
         @if (!$bills->count())    
-            <div class="alert alert-primary col-12 " role="alert">
+            <div class="alert alert-primary col-4 " role="alert">
                 We've got you started with the most common bills, but feel free to remove any that you don't need, 
-                or rename them to something that makes sense to you.</div>
+                or rename them to something that makes sense to you. It will help to have your last months bank statement with
+                you to capture all your bills and regular outgoings.</div>
         @else 
-            <div class="alert alert-primary col-12" role="alert">
+            <div class="alert alert-primary col-4" role="alert">
                 <i class="fas fa-info-circle"></i>&nbsp; We've listed all the bills you mentioned previously, so you can amend their details, remove them or add new ones.</div>
         @endif
+        <div class="alert alert-primary col-4" role="alert">
+            <i class="fas fa-info-circle"></i>&nbsp; Luxury items are those bills which you could manage to live without eg: premium TV subscriptions (if you are out of contract), 
+            music service subscriptions etc.</div>
 
         
     
     <div class="col-12" id="billsGrid">
         <div class="row mb-1">
-            <div class="col-4 h4">
+            <div class="col-3 h4">
                 Bill
+            </div>
+            <div class="col-1 h5">
+                Luxury
             </div>
             <div class="col-2 h4">
                 Period
             </div>
-            <div class="col-3 h4">
+            <div class="col-2 h4">
                 Amount
             </div>
-            <div class="col-3 h4">
+            <div class="col-2 h4">
                 When
             </div>
         </div>
         @if ($bills->count())
             @foreach ($bills as $item)
                 <div class="row billRow mb-1" id="bill-{{$item->id}}">
-                    <div class="col-4">
+                    <div class="col-3">
                         <a href="#" class="btn-circle btn-danger btn-sm removeRow float-left mr-2"><i class="fas fa-times"></i></a>
                         {!! Form::text($item->id.'[name]', $item->name,['class'=>'form-control col-10']) !!}
+                    </div>
+                    <div class="col-1">
+                        {!! Form::checkbox($item->id.'[luxury]', true, $item->luxury,['class'=>'form-control col-2 ml-4']) !!}
                     </div>
                     <div class="col-2">
                         {!! Form::select($item->id.'[period]', $periods , $item->period, ['class' => 'form-control col-8 periodPicker', 'id'=>$item->id]) !!}
                     </div>
-                    <div class="col-3 weekly"  style="display:none">
+                    <div class="col-2 weekly"  style="display:none">
                         {!! Form::number($item->id.'[weekly]',  $item->weekly, ['class' => 'form-control','step'=>'any','placeholder'=>'Weekly Cost']) !!}
                     </div>
-                    <div class="col-3 monthly">
+                    <div class="col-2 monthly">
                         {!! Form::number($item->id.'[monthly]',  $item->monthly, ['class' => 'form-control','step'=>'any','placeholder'=>'Monthly Cost']) !!}
                     </div>
-                    <div class="col-3 yearly"  style="display:none">
+                    <div class="col-2 yearly"  style="display:none">
                         {!! Form::number($item->id.'[yearly]',  $item->yearly, ['class' => 'form-control','step'=>'any','placeholder'=>'Yearly Cost']) !!}
                     </div>
-                    <div class="col-3  weekly" style="display:none">
+                    <div class="col-2  weekly" style="display:none">
                         {!! Form::select($item->id.'[weekday]', $daysofweek, $item->weekday, ['class' => 'form-control']) !!}
                     </div>
-                    <div class="col-3 monthly">
+                    <div class="col-2 monthly">
                         {!! Form::select($item->id.'[dayofmonth]', $daysofmonth, $item->dayofmonth, ['class' => 'form-control col-6']) !!}
                     </div>
-                    <div class="col-3 yearly"  style="display:none">
+                    <div class="col-2 yearly"  style="display:none">
                         {!! Form::date($item->id.'[date]', $item->date, ['class' => 'form-control datepicker col-12']) !!}
                     </div>
                 </div>
@@ -82,29 +92,32 @@
         @else
             @foreach ($items as $item)
                 <div class="row mb-1  billRow" id="bill-{{$item->id}}">
-                    <div class="col-4">
+                    <div class="col-3">
                         <a href="#" class="btn-circle btn-danger btn-sm removeRow float-left mr-2"><i class="fas fa-times"></i></a>
                         {!! Form::text($item->id.'[name]', $item->name,['class'=>'form-control col-10']) !!}
+                    </div>
+                    <div class="col-1">
+                        {!! Form::checkbox($item->id.'[luxury]', true, null,['class'=>'form-control col-2 ml-4']) !!}
                     </div>
                     <div class="col-2">
                         {!! Form::select($item->id.'[period]', $periods , "Monthly", ['class' => 'form-control col-8 periodPicker', 'id'=>$item->id]) !!}
                     </div>
-                    <div class="col-3 weekly"  style="display:none">
+                    <div class="col-2 weekly"  style="display:none">
                         {!! Form::number($item->id.'[weekly]',  null, ['class' => 'form-control','step'=>'any','placeholder'=>'Weekly Cost']) !!}
                     </div>
-                    <div class="col-3 monthly">
+                    <div class="col-2 monthly">
                         {!! Form::number($item->id.'[monthly]',  null, ['class' => 'form-control','step'=>'any','placeholder'=>'Monthly Cost']) !!}
                     </div>
-                    <div class="col-3 yearly"  style="display:none">
+                    <div class="col-2 yearly"  style="display:none">
                         {!! Form::number($item->id.'[yearly]',  null, ['class' => 'form-control','step'=>'any','placeholder'=>'Yearly Cost']) !!}
                     </div>
-                    <div class="col-3  weekly" style="display:none">
+                    <div class="col-2  weekly" style="display:none">
                         {!! Form::select($item->id.'[weekday]', $daysofweek, null, ['class' => 'form-control']) !!}
                     </div>
-                    <div class="col-3 monthly">
+                    <div class="col-2 monthly">
                         {!! Form::select($item->id.'[dayofmonth]', $daysofmonth, null, ['class' => 'form-control col-6']) !!}
                     </div>
-                    <div class="col-3 yearly"  style="display:none">
+                    <div class="col-2 yearly"  style="display:none">
                         {!! Form::date($item->id.'[date]', now(), ['class' => 'form-control datepicker col-12']) !!}
                     </div>
                 </div>
@@ -132,10 +145,13 @@
         var row =  $("#billsGrid").children().length * 100;
 
         var newRow = '<div class="row mb-1 billRow" id="bill-'+row+'">'+
-                '      <div class="col-4">'+
+                '      <div class="col-3">'+
                 '          <a href="#" class="btn-circle btn-danger btn-sm removeRow float-left mr-2"><i class="fas fa-times"></i></a>'+
                 '          <input class="form-control col-10" name="'+row+'[name]" type="text" placeholder="New bill name">'+
                 '      </div>'+
+                '        <div class="col-1">'+
+                '            <input class="form-control col-2 ml-4" name="'+row+'[luxury]" type="checkbox" value="1">'+
+                '        </div>'+
                 '      <div class="col-2">'+
                 '          <select class="form-control col-8 periodPicker" id="'+row+'" name="'+row+'[period]">'+
                 '              <option value="Weekly">Weekly</option>'+
@@ -143,16 +159,16 @@
                 '              <option value="Yearly">Yearly</option>'+
                 '          </select>'+
                 '      </div>'+
-                '      <div class="col-3 weekly" style="display:none">'+
+                '      <div class="col-2 weekly" style="display:none">'+
                 '          <input class="form-control" step="any" name="'+row+'[weekly]" type="number" placeholder="Weekly Cost">'+
                 '      </div>'+
-                '      <div class="col-3 monthly">'+
+                '      <div class="col-2 monthly">'+
                 '          <input class="form-control" step="any" placeholder="Monthly Cost" name="'+row+'[monthly]" type="number">'+
                 '      </div>'+
-                '      <div class="col-3 yearly" style="display:none">'+
+                '      <div class="col-2 yearly" style="display:none">'+
                 '          <input class="form-control" step="any" name="'+row+'[yearly]"  placeholder="Yearly Cost" type="number">'+
                 '      </div>'+
-                '      <div class="col-3  weekly" style="display:none">'+
+                '      <div class="col-2  weekly" style="display:none">'+
                 '          <select class="form-control" name="'+row+'[weekday]">'+
                 '          <option value="1">Mon</option>'+
                 '          <option value="2">Tue</option>'+
@@ -162,7 +178,7 @@
                 '          <option value="6">Sat</option>'+
                 '          <option value="7">Sun</option></select>'+
                 '      </div>'+
-                '      <div class="col-3 monthly">'+
+                '      <div class="col-2 monthly">'+
                 '          <select class="form-control col-6" name="'+row+'[dayofmonth]">'+
                 '              <option value="1">1st</option>'+
                 '              <option value="2">2nd</option>'+
@@ -197,7 +213,7 @@
                 '              <option value="31">31st</option>'+
                 '          </select>'+
                 '          </div>'+
-                '          <div class="col-3 yearly" style="display:none">'+
+                '          <div class="col-2 yearly" style="display:none">'+
                 '              <input class="form-control datepicker col-12" name="'+row+'[date]" type="date" value="2020-03-27">'+
                 '          </div>'+
                 '    </div>';

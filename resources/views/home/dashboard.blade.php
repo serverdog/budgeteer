@@ -16,12 +16,16 @@
     <div class="row">
 
         @include('home.partials.fund_overview_table')
-        @include('home.partials.funds_by_category_chart')
+        @include('home.partials.bills_overview')
+
+
+
         @if ($history->count() > 1)
             @include('home.partials.history_chart')
         @endif
 
         @include('home.partials.detail_table')
+        @include('home.partials.funds_by_category_chart')
     </div>
 
 @endsection
