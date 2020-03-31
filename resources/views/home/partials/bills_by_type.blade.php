@@ -1,10 +1,11 @@
 @php
     $totals = [];
     foreach ($bills as $bill){
-        if (isset($totals[$bill->category->type])) {
-            $totals[$bill->category->type] = $totals[$bill->category->type] + $bill->monthlyCost;
+        $type = $bill->category->type ?? "Other";
+        if (isset($totals[$type])) {
+            $totals[$type] += $bill->monthlyCost;
         } else {
-            $totals[$bill->category->type] = $bill->monthlyCost;
+            $totals[$type] = $bill->monthlyCost;
         }
     }
     $totals['Incidentals'] = $user->incidentals;
@@ -26,7 +27,14 @@
         <div class="chart-pie pt-4 pb-2">
           <canvas id="billsTypeChart"></canvas>
         </div>
-       
+
+
+        <a href="{!! route('bills.index') !!}" class="btn btn-primary btn-icon-split btn-sm">
+            <span class="icon text-white-50">
+              <i class="fas fa-pen"></i>
+            </span>
+            <span class="text">Update your bills</span>
+          </a>
       </div>
     </div>
   </div>
