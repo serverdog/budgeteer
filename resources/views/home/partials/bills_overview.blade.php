@@ -19,7 +19,7 @@
                 <i class="fas fa-info-circle"></i> &nbsp;
                 Did you know you could save {{ currency_format($luxuryBills, currency()->getUserCurrency())  }}
                 <span class="font-italic">({{$percent}}%)</span> on your regular outgoings by stopping your luxury bill items? This could
-                extend you sustanability by <strong>{{ $extension }}</strong> days.
+                extend you sustainability by approximately <strong>{{ $extension }}</strong> days.
             </div>
 
             <div class="table-responsive">

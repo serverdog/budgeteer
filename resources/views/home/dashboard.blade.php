@@ -48,7 +48,7 @@
         @endif
 
         @include('home.partials.detail_table')
-        @include('home.partials.funds_by_category_chart')
+        {{-- @include('home.partials.funds_by_category_chart') --}}
     </div>
 
 @endsection
