@@ -25,7 +25,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Accounts
+        Your Budget
     </div>
 
     <li class="nav-item">
@@ -56,7 +56,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{!! route('incomes.index') !!}">
             <i class="fas fa-fw fa-hand-holding-usd"></i>
-            <span>Other Income</span></a>
+            <span>Income</span></a>
     </li>
 
     <li class="nav-item">
