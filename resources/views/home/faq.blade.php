@@ -11,9 +11,10 @@
                     to see where your money is and what your debts are.
                 </p>
                 <h2>What do you do with my data?</h2>
-                <p>Apart from helping you analyse where your costs and funds are, we don't use your data for any other purpose.
-                    We understand that this is confidential information for you, so we don't share it with anyone, even people
-                    that work for us.
+                <p>We understand that this is confidential information for you, so we don't share it with anyone, even people
+                    that work for us. We mainly use your data to help you understand your finances better. In some cases
+                    we anonymously aggregate some of your figures together to get an average to help people understand their bills 
+                    better eg: People like you spend less per month on their TV subscription.
                 </p>
             </div>
         </div>

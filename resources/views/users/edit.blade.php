@@ -68,7 +68,19 @@
             {!! Form::label('country', 'Country:') !!}
             {!! Form::select('country_id', $countries,  null, ['class' => 'form-control']) !!}
         </div>
-                                
+        <hr/>
+        <p class="alert alert-info" role="alert">
+            Help us interpret your bills better by telling us a few more details about yourself so we can compare your
+            bills to other people like you, and help identify where you could save money.
+        </p>
+        <div class="form-group col-sm-12">    
+            {!! Form::label('house_size', 'People in your home:') !!}
+            {!! Form::number('house_size', null, ['class' => 'form-control']) !!}
+        </div>
+        <div class="form-group col-sm-12">        
+            {!! Form::label('dwelling_id', 'Size of Home:') !!}
+            {!! Form::select('dwelling_id', $dwellings,  null, ['class' => 'form-control','placeholder'=>'Please Select']) !!}
+        </div>                   
         <div class="text-center">
             <button type="submit" class="btn btn-success mt-4">{{ __('Update Settings') }}</button>
         </div>

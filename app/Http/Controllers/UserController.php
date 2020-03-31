@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Currency;
+use App\Models\Dwelling;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Webpatser\Countries\Countries;
@@ -58,7 +59,8 @@ class UserController extends Controller
         $user = Auth::user()->fresh();
         $currencies = Currency::pluck('name', 'code');
         $countries = Countries::orderBy('name')->pluck('name', 'id');
-        return view('users.edit', compact('user', 'currencies', 'countries'));
+        $dwellings = Dwelling::orderBy('name')->pluck('name', 'id');
+        return view('users.edit', compact('user', 'currencies', 'countries', 'dwellings'));
     }
 
     /**

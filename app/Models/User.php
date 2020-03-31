@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'incidentals', 'currency', 'country_id'
+        'name', 'email', 'password', 'incidentals', 'currency', 'country_id', 'dwelling_id', 'house_size'
     ];
 
     /**
@@ -38,6 +38,8 @@ class User extends Authenticatable
         'incidentals'       => 'float',
         'currency'          => 'string',
         'country_id'        => 'integer',
+        'dwelling_id'       => 'integer',
+        'house_size'        => 'integer',
     ];
 
 
