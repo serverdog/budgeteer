@@ -46,6 +46,7 @@
         @if ($history->count() > 1)
             @include('home.partials.history_chart')
         @endif
+        @include('home.partials.bills_by_type')
 
         @include('home.partials.detail_table')
         {{-- @include('home.partials.funds_by_category_chart') --}}

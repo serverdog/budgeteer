@@ -42,7 +42,8 @@ class Bill extends Model
         'dayofmonth',
         'date',
         'period',
-        'luxury'
+        'luxury',
+        'bill_category_id'
     ];
 
     /**
@@ -61,7 +62,8 @@ class Bill extends Model
         'weekday'    => 'integer',
         'dayofmonth' => 'integer',
         'date'       => 'date',
-        'luxury'     => 'boolean'
+        'luxury'     => 'boolean',
+        'bill_category_id' => 'integer',
 
     ];
 
@@ -93,6 +95,14 @@ class Bill extends Model
     public function user()
     {
         return $this->belongsTo(\App\Models\User::class, 'user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function category()
+    {
+        return $this->belongsTo(\App\Models\BillCategory::class, 'bill_category_id');
     }
 
     public function getMonthlyCostAttribute()

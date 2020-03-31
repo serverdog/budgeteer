@@ -58,4 +58,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Webpatser\Countries\Countries::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function dwelling()
+    {
+        return $this->belongsTo(Webpatser\Countries\Dwelling::class);
+    }
 }

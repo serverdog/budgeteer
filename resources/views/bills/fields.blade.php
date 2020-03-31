@@ -43,6 +43,9 @@
             <div class="col-3 h4">
                 Bill
             </div>
+            <div class="col-2 h4">
+                Type
+            </div>
             <div class="col-1 h5">
                 Luxury
             </div>
@@ -63,6 +66,9 @@
                         <a href="#" class="btn-circle btn-danger btn-sm removeRow float-left mr-2"><i class="fas fa-times"></i></a>
                         {!! Form::text($item->id.'[name]', $item->name,['class'=>'form-control col-10']) !!}
                     </div>
+                    <div class="col-2" >
+                        {!! Form::select($item->id.'[bill_category_id]', $categories, $item->bill_category_id, ['class' => 'form-control','placeholder'=>'Other']) !!}
+                    </div>
                     <div class="col-1">
                         {!! Form::checkbox($item->id.'[luxury]', true, $item->luxury,['class'=>'form-control col-2 ml-4']) !!}
                     </div>
@@ -82,7 +88,7 @@
                         {!! Form::select($item->id.'[weekday]', $daysofweek, $item->weekday, ['class' => 'form-control']) !!}
                     </div>
                     <div class="col-2 monthly">
-                        {!! Form::select($item->id.'[dayofmonth]', $daysofmonth, $item->dayofmonth, ['class' => 'form-control col-6']) !!}
+                        {!! Form::select($item->id.'[dayofmonth]', $daysofmonth, $item->dayofmonth, ['class' => 'form-control col-12']) !!}
                     </div>
                     <div class="col-2 yearly"  style="display:none">
                         {!! Form::date($item->id.'[date]', $item->date, ['class' => 'form-control datepicker col-12']) !!}

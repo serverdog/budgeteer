@@ -53,3 +53,5 @@ Route::group(['middleware' => 'auth'], function () {
 Route::resource('articles', 'ArticleController');
 
 Route::resource('dwellings', 'DwellingController');
+
+Route::resource('billCategories', 'BillCategoryController');

@@ -6,6 +6,7 @@ use Flash;
 use Response;
 use App\Models\Bill;
 use App\Models\BillItem;
+use App\Models\BillCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateBillRequest;
@@ -44,8 +45,9 @@ class BillController extends AppBaseController
     public function create()
     {
         $items = BillItem::orderBy('name')->get();
-        $bills = Bill::where('user_id', Auth::id())->orderBy('name')->get();
-        return view('bills.create')->with(compact('items', 'bills'));
+        $bills = Bill::where('user_id', Auth::id())->with('category')->orderBy('name')->get();
+        $categories = BillCategory::orderBy('name')->pluck('name', 'id');
+        return view('bills.create')->with(compact('items', 'bills', 'categories'));
     }
 
     /**

@@ -27,7 +27,7 @@ class HomeController extends Controller
         $accounts = Account::count();
         $funds    = Summary::get();
         $details  = Balance::with(['Account','Account.Accounttype.Category'])->where('latest', 1)->get();
-        $bills = Bill::get();
+        $bills = Bill::with(['category'])->get();
         $history = HistorySummary::orderBy('date')->get();
         $user = Auth::user()->fresh();
         $income = Income::get();
