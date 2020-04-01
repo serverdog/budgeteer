@@ -27,7 +27,7 @@
         <div class="chart-pie pt-4 pb-2">
           <canvas id="billsTypeChart"></canvas>
         </div>
-
+        <p>Your luxury bills account for {{$luxuryBillsPercent}}% of your regular outgoings.</p>
 
         <a href="{!! route('bills.index') !!}" class="btn btn-primary btn-icon-split btn-sm">
             <span class="icon text-white-50">
